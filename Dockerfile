@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER Mark McCahill <mccahill@duke.edu>
+LABEL Matteo Alleva & Adriano Giuliani <alleva.1889197@studenti.uniroma1.it>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV HOME /root

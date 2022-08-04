@@ -1,0 +1,14 @@
+version: "3.9"
+    
+services:
+
+  sys:
+    image: ncbi/edirect:latest
+    volumes:
+      - type: bind
+        source: /home/matt/app/biotech
+        target: /home
+    ports:
+      - "8090:8090"
+    restart: always
+    

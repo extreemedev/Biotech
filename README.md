@@ -1,186 +1,158 @@
-docker-novnc-template
-=========================
+# Headless Ubuntu/Xfce containers with VNC/noVNC
 
-This is a minimal image which will help you run X server with Openbox 
-on the docker container and access it from ANY recent browser without 
-requiring you to do any configuration on the client side.
+## Project `accetto/xubuntu-vnc-novnc`
 
+[Docker Hub][this-docker] - [Git Hub][this-github] - [Changelog][this-changelog] - [Wiki][this-wiki] - [Hierarchy][this-wiki-image-hierarchy]
 
-## Why?
+***
 
-Provide system application accessible over the web without requiring 
-the clients to install any  VNC client software, perhaps to provide 
-remote access to applications running in docker containers for students 
-doing coursework or researcher access to remote VMs/containers.
+**Attention!** The repository is **retired** and **archived**. It will not be developed any further and the related images on Docker Hub will not be rebuilt any more. They will phase out and they will be deleted after becoming too old. Please use the newer **third generation** (G3) repository [accetto/ubuntu-vnc-xfce-g3][accetto-ubuntu-vnc-xfce-g3] and the related images on Docker Hub instead. If you still need images based on `Ubuntu 18.04 LTS`, then feel free using the repository for building the images locally.
 
+***
 
-This container is a generic Ubuntu Linux with X, OpenBox, and NoVNC 
-installed so that you can access the container via a GUI from your 
-HTML5 web browser. 
+![badge-github-release][badge-github-release]
+![badge-github-release-date][badge-github-release-date]
+![badge-github-stars][badge-github-stars]
+![badge-github-forks][badge-github-forks]
+![badge-github-open-issues][badge-github-open-issues]
+![badge-github-closed-issues][badge-github-closed-issues]
+![badge-github-releases][badge-github-releases]
+![badge-github-commits][badge-github-commits]
+![badge-github-last-commit][badge-github-last-commit]
 
-It is very likely that you will want to augment this container with some 
-additional applications. One way to do this is to map a directory 
-containing the app into the container (read-only) and include some 
-settings files so the app appears in the OpenBox GUI.
+**Tip** If you want newer images based on [Ubuntu 20.04 LTS][docker-ubuntu] with the latest [TigerVNC][tigervnc-releases]/[noVNC][novnc-releases] versions, please check the **third generation** (G3) [accetto/ubuntu-vnc-xfce-g3][accetto-docker-ubuntu-vnc-xfce-g3], [accetto/ubuntu-vnc-xfce-chromium-g3][accetto-docker-ubuntu-vnc-xfce-chromium-g3] or [accetto/ubuntu-vnc-xfce-firefox-g3][accetto-docker-ubuntu-vnc-xfce-firefox-g3].
 
-For example, suppose 
- - a matlab binary is located here:
-```
-      /srv/matlabR2014a
-```
- - a desktop file (matlab.desktop) to define the matlab menu entry and desktop icon (and potentially other additions) are in the directory: 
-```
-      /srv/applications-desktop/
-```
- - the user's persistent home directory is mounted as a volume from:
-```
-      /srv/homedirs/user1
-```
- - a site certificate to allow encrypted connections is at:
-```
-      /srv/self.pem-myhost
-```
- - you want to have users connect at port 6081
- - your server is named your.hostname.here
- - you want to set the password for login to the VNC session to somefunkypassword
+***
 
+This project repository contains resources for building various Docker images based on [Ubuntu][docker-ubuntu] with [Xfce][xfce] desktop environment and [VNC][tigervnc]/[noVNC][novnc] servers for headless use.
 
-You can run a container to do this by issuing the command:
-```
-docker run -d -t -p 6081:6080 \
-   -e VNCPASS=somefunkypassword -v /srv/matlabR2014a:/matlabR2014a:ro \
-   -v /srv/self.pem-myhost:/noVNC/self.pem \
-   -v /srv/configs:/configs:ro  \
-   -v /srv/homedirs/user1:/home/ubuntu -h your.hostname.here docker-novnc-template
+The resources for the individual images and their variations are stored in the subfolders of the [Git Hub][this-github] repository and the image features are described in the individual README files. Additional descriptions can be found in the common project [Wiki][this-wiki].
 
-```
+All images are part of a growing [image hierarchy][this-wiki-image-hierarchy].
 
-## Building the container
+### Git Hub subfolders / Docker image sets
 
-First cd to the noVNC directory and create a self.pem certificate 
-for noVNC because we want to force secure connections (via https and wss) 
-between the user's web browser and the container. 
+#### [xubuntu-vnc-novnc][this-github-xubuntu-vnc-novnc]
 
-See the "Encrypted noVNC Sessions" section below for details on how to
-set up the site certificate.
+Contains resources for building [accetto/xubuntu-vnc-novnc][this-docker-xubuntu-vnc-novnc] base images.
 
-After you have a cert in self.pem, build the container with the command
-```
-sudo docker build -t docker-novnc-template .
-```
+The images are streamlined and simplified versions of my other images [accetto/ubuntu-vnc-xfce][accetto-docker-ubuntu-vnc-xfce].
 
-Run using the default password from the Dockerfile build script:
-```
-sudo docker run -i -t -p 6081:6080 -h your.hostname.here docker-novnc-template
-```
+Several variations are available, including the one supporting overriding both the container user and the user group.
 
-Better yet, run and set the passwords for VNC and user via environment variables:
+These base images already include commonly used utilities **ping**, **wget**, **zip**, **unzip**, **sudo**, [curl][curl], [git][git] and also the current version of [jq][jq] JSON processor.
 
-```
-sudo docker run -i -t -p 6081:6080 -e UBUNTUPASS=supersecret -e VNCPASS=secret \
-   -h your.hostname.here docker-novnc-template
-```
-You need to specify the hostname to the container so that it matches the
-site certificate that you configured noVNC with, or pedantic web browsers will
-frighten users with scary warnings. 
+Additional components and applications can be easily added by the user because **sudo** is supported.
 
-Browse to
-    https://your.hostname.here:6081/vnc.html
-or
-    https://your.hostname.here:6081/vnc_auto.html
+#### [xubuntu-vnc-novnc-chromium][this-github-xubuntu-vnc-novnc-chromium]
+  
+Contains resources for building [accetto/xubuntu-vnc-novnc-chromium][this-docker-xubuntu-vnc-novnc-chromium] images with the open-source [Chromium][chromium] web browser.
 
-You will be prompted for the vnc password which was set to 'foobar' in the
-Dockerfile build. You'll probably want to change that and also change the 
-hardcoded password ('badpassword') for the ubuntu account created 
-in the build process by specifying passwords when you run the container.
+#### [xubuntu-vnc-novnc-firefox][this-github-xubuntu-vnc-novnc-firefox]
+  
+Contains resources for building [accetto/xubuntu-vnc-novnc-firefox][this-docker-xubuntu-vnc-novnc-firefox] images with the current [Firefox Quantum][firefox] web browser.
 
-Note that the user can skip the VNC password prompt if you redirect them to 
+Several variations are available, including the one supporting easy pre-configuration and copying of personal Firefox user preferences.
 
- https://your.host.here:6081/vnc.html?&encrypt=1&autoconnect=1&password=foobar
+The images are streamlined and simplified versions of my other images [accetto/ubuntu-vnc-xfce-firefox-plus][accetto-docker-ubuntu-vnc-xfce-firefox-plus] and [accetto/ubuntu-vnc-xfce-firefox-default][accetto-docker-ubuntu-vnc-xfce-firefox-default].
 
+#### [utils][this-github-utils]
+  
+Contains utilities that make building the images more convenient.
 
-## Encrypted noVNC Sessions
+- `util-hdx.sh`  
 
-To enable encrypted connections, you need to (at a minimum) create a 
-noVNC self.pem certificate file as describe here: 
-   https://github.com/kanaka/websockify/wiki/Encrypted-Connections
+  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
+  
+  The comment lines at the top of included Dockerfiles are intended for this utility.
 
-In other words do something like this
+  The utility displays the help if started with the `-h` or `--help` argument. It has been developed using my other utilities `utility-argbash-init.sh` and `utility-argbash.sh`, contained in the [accetto/argbash-docker][accetto-github-argbash-docker-utils] Git Hub repository, from which the [accetto/argbash-docker][accetto-docker-argbash-docker] Docker image is built.
 
-```
-     openssl req -x509 -days 365 -nodes -newkey rsa:2048 -out self.pem -keyout self.pem 
-```
+- `util-refresh-readme.sh`  
+  
+  This script can be used for updating the `version sticker` badges in README files. It is intended for local use before publishing the repository.
 
-Even better, get your private key signed by a known certificate authority,
-so that users are not confronted with frightening warnings about untrusted sites. 
+  The script does not include any help, because it takes only a single argument - the path where to start searching for files (default is `../docker`).
 
+## Issues
 
-PROTIP: make sure that the read permissions are set to only allow root to read the
-self.pem file, since you probably don't want users to get access to the private key.
+If you have found a problem or you just have a question, please check the [Issues][this-issues] and the [Wiki][this-wiki] first. Please do not overlook the closed issues.
 
-## Xvfb vs XDummy/Xorg
-
-There are two approaches that can be taken to set up a virtual framebuffer for the VNC
-server. The Dockerfile.xvfb build will create a container that uses the ancient and venerable
-Xvfb approach, while the Dockerfile.xorg creates a container the sets up an Xdummy framebuffer
-in Xorg. For the Xorg approach, we also need to set up the xorg.conf config file so you might 
-want take a look at the settings there. I'm keeping the Xvfb in this source for sentimental 
-reasons. You probably want to run the xorg flavor since that is what I actually test.
-
-The reason for considering the Xorg approach over Xvfb is Xorg+Xdummy support the randr 
-dynamic screen resizing functions so there are fewer warnings thrown by apps like firefox,
-and someday we might get clever about resizing on the fly, or take advantage of GLX extnesions.
-See https://www.xpra.org/trac/wiki/Xdummy for details.
-
-You'll need to copy Dockerfile.xvfb or Dockerfile.xorg to Dockerfile to build the appropriate
-version for your situation.
-
-## Misc Notes
-
-The contents of /configs/openbox are copied to the user's ~/.config directory to put some 
-reasonable default settings in place for the X environment when run inside a web browser. 
-Reasonable means things like placing the dock at the top of the page so users don't have to 
-scroll their web page to find it.
-
-You can construct a URL that will automagically connect the user over an encrypted session
-by passing appropriate parameters like this:
-
-```
-https://YOUR-HOST-HERE:6080/vnc.html?host=YOUR-HOST-HERE&port=6080&encrypt=1&autoconnect=1&password=XXXXX
-```
-
-To launch NoVNC with a password, put a password on the server with this:
-
-```
-    x11vnc -storepasswd badpassword /root/.vnc/passwd 
-```
-
-then use this startup.sh:
-
-```
-export DISPLAY=:1
-Xvfb :1 -screen 0 1280x1024x16 &
-openbox-session &
-x11vnc -display :1 -bg -listen localhost -xkb -ncache 10 -ncache_cr  -passwd XXXXX
-cd /root/noVNC && ./utils/launch.sh --vnc localhost:5900
-```
-
-
-## Extending
-
-To add scripts to run at startup, modify the initialize.sh script we use to set up
-user directories and launch services. The initialize.sh script is called by 
-supervisord at container startup time. 
-
-To add supervisord configs, add them to this folder:
-
-```
-/etc/supervisor/conf.d/
-```
+If you do not find a solution, you can file a new issue. The better you describe the problem, the bigger the chance it'll be solved soon.
 
 ## Credits
 
-Paim Pozhil's initial work on a NoVNC Docker container -- https://github.com/paimpozhil/docker-novnc
+Credit goes to all the countless people and companies, who contribute to open source community and make so many dreamy things real.
 
-NoVNC -- http://kanaka.github.io/noVNC/
+***
 
+[this-docker]: https://hub.docker.com/u/accetto/
+
+[this-github]: https://github.com/accetto/xubuntu-vnc-novnc/
+[this-changelog]: https://github.com/accetto/xubuntu-vnc-novnc/blob/master/CHANGELOG.md
+
+[this-wiki]: https://github.com/accetto/xubuntu-vnc-novnc/wiki
+[this-wiki-image-hierarchy]: https://github.com/accetto/xubuntu-vnc-novnc/wiki/Image-hierarchy
+
+[this-issues]: https://github.com/accetto/xubuntu-vnc-novnc/issues
+
+[this-github-utils]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/utils/
+
+[this-github-xubuntu-vnc-novnc]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/docker/xubuntu-vnc-novnc/
+[this-docker-xubuntu-vnc-novnc]: https://hub.docker.com/r/accetto/xubuntu-vnc-novnc/
+
+[this-github-xubuntu-vnc-novnc-chromium]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/docker/xubuntu-vnc-novnc-chromium/
+[this-docker-xubuntu-vnc-novnc-chromium]: https://hub.docker.com/r/accetto/xubuntu-vnc-novnc-chromium/
+
+[this-github-xubuntu-vnc-novnc-firefox]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/docker/xubuntu-vnc-novnc-firefox/
+[this-docker-xubuntu-vnc-novnc-firefox]: https://hub.docker.com/r/accetto/xubuntu-vnc-novnc-firefox/
+
+[accetto-docker-ubuntu-vnc-xfce]: https://hub.docker.com/r/accetto/ubuntu-vnc-xfce
+[accetto-docker-ubuntu-vnc-xfce-firefox-default]: https://hub.docker.com/r/accetto/ubuntu-vnc-xfce-firefox-default
+[accetto-docker-ubuntu-vnc-xfce-firefox-plus]: https://hub.docker.com/r/accetto/ubuntu-vnc-xfce-firefox-plus
+
+[accetto-github-xubuntu-vnc]: https://github.com/accetto/xubuntu-vnc/
+[accetto-xubuntu-vnc-wiki-image-hierarchy]: https://github.com/accetto/xubuntu-vnc/wiki/Image-hierarchy
+
+[accetto-ubuntu-vnc-xfce-g3]: https://github.com/accetto/ubuntu-vnc-xfce-g3
+
+[accetto-docker-ubuntu-vnc-xfce-g3]: https://hub.docker.com/r/accetto/ubuntu-vnc-xfce-g3
+[accetto-docker-ubuntu-vnc-xfce-chromium-g3]: https://hub.docker.com/r/accetto/ubuntu-vnc-xfce-chromium-g3
+[accetto-docker-ubuntu-vnc-xfce-firefox-g3]: https://hub.docker.com/r/accetto/ubuntu-vnc-xfce-firefox-g3
+
+[accetto-docker-argbash-docker]: https://hub.docker.com/r/accetto/argbash-docker
+[accetto-github-argbash-docker-utils]: https://github.com/accetto/argbash-docker/tree/master/utils
+
+[docker-ubuntu]: https://hub.docker.com/_/ubuntu/
+
+[curl]: http://manpages.ubuntu.com/manpages/bionic/man1/curl.1.html
+[git]: https://git-scm.com/
+[inkscape]: https://inkscape.org/
+[jq]: https://stedolan.github.io/jq/
+[firefox]: https://www.mozilla.org
+[git]: https://git-scm.com/
+[novnc]: https://github.com/kanaka/noVNC
+[novnc-releases]: https://github.com/novnc/noVNC/releases
+[tigervnc]: http://tigervnc.org
+[tigervnc-releases]: https://github.com/TigerVNC/tigervnc/releases
+[xfce]: http://www.xfce.org
+
+<!-- github badges -->
+
+[badge-github-release]: https://badgen.net/github/release/accetto/xubuntu-vnc-novnc?icon=github&label=release
+
+[badge-github-release-date]: https://img.shields.io/github/release-date/accetto/xubuntu-vnc-novnc?logo=github
+
+[badge-github-stars]: https://badgen.net/github/stars/accetto/xubuntu-vnc-novnc?icon=github&label=stars
+
+[badge-github-forks]: https://badgen.net/github/forks/accetto/xubuntu-vnc-novnc?icon=github&label=forks
+
+[badge-github-releases]: https://badgen.net/github/releases/accetto/xubuntu-vnc-novnc?icon=github&label=releases
+
+[badge-github-commits]: https://badgen.net/github/commits/accetto/xubuntu-vnc-novnc?icon=github&label=commits
+
+[badge-github-last-commit]: https://badgen.net/github/last-commit/accetto/xubuntu-vnc-novnc?icon=github&label=last%20commit
+
+[badge-github-closed-issues]: https://badgen.net/github/closed-issues/accetto/xubuntu-vnc-novnc?icon=github&label=closed%20issues
+
+[badge-github-open-issues]: https://badgen.net/github/open-issues/accetto/xubuntu-vnc-novnc?icon=github&label=open%20issues

@@ -1,14 +1,42 @@
-version: "3.9"
+version: "3.8"
     
 services:
 
-  sys:
-    image: ncbi/edirect:latest
-    volumes:
-      - type: bind
-        source: /home/matt/app/biotech
-        target: /home
+  monitor:
+    container_name: monitor
+    image: accetto/xubuntu-vnc-novnc:latest
+    #volumes:
+      #- type: bind
+        #source: /home/matt/app/biotech
+        #target: /home
     ports:
-      - "8090:8090"
+      - "25901:5901"
+      - "26901:6901"
     restart: always
+
+
+  python:
+    container_name: python
+    image: python:3.9
+    restart: always
+
+
+  spades:
+    container_name: spades
+    image: staphb/spades:latest
+    restart: always
+
+
+  fastqc:
+    container_name: fastqc
+    image: staphb/fastqc:latest
+    restart: always
+
+
+  trimmomatic:
+    container_name: trimmomatic
+    image: staphb/trimmomatic:latest
+    restart: always
+
+
     

@@ -14,16 +14,30 @@ Trimmomatic-0.39{
     
 }
 
-transabyss-2.0.1
+transabyss-2.0.1{
 
-salmon-1.5.1
+}
 
-trinityrnaseq-v2.11.0
+salmon-1.5.1{
 
-detonated-1.11
+}
 
-busco-4.1.4
+trinityrnaseq-v2.11.0{
 
-cd-hit-v4.8.1
+}
 
-FastQC
+detonated-1.11{
+
+}
+
+busco-4.1.4{
+
+}
+
+cd-hit-v4.8.1{
+
+}
+
+FastQC{
+    
+}

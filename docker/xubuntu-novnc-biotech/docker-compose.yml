@@ -4,7 +4,8 @@ services:
 
   monitor:
     container_name: monitor
-    image: accetto/xubuntu-vnc-novnc:latest
+    #image: accetto/xubuntu-vnc-novnc:latest
+    image: biotech:prova
     #volumes:
       #- type: bind
         #source: /home/matt/app/biotech
@@ -17,7 +18,7 @@ services:
 
   python:
     container_name: python
-    image: python:3.9
+    image: python:3.9-alpine
     restart: always
 
 

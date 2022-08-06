@@ -99,7 +99,7 @@ RUN apt-get update \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./sapienza.jpg /usr/share/backgrounds/
+COPY ./xfce-teal.jpg /usr/share/backgrounds/xfce/
 
 FROM stage-xfce as stage-vnc
 

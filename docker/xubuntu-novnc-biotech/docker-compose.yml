@@ -5,7 +5,8 @@ services:
   monitor:
     container_name: monitor
     #image: accetto/xubuntu-vnc-novnc:latest
-    image: biotech:prova
+    image: xubuntu-vnc-novnc:sapienza
+    #image: xubunutu-novnc-biotech:latest
     #volumes:
       #- type: bind
         #source: /home/matt/app/biotech

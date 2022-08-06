@@ -1,4 +1,4 @@
-FROM accetto/xubuntu-vnc-novnc
+FROM accetto/xubuntu-vnc-novnc:latest
 
 USER root
 
@@ -14,9 +14,10 @@ USER root
 
 
 #SPAdes-3.14.1
-RUN wget http://cab.spbu.ru/files/release3.14.1/SPAdes-3.14.1-Linux.tar.gz
-RUN tar -xzf SPAdes-3.14.1-Linux.tar.gz
-RUN cd SPAdes-3.14.1-Linux/bin/
+RUN wget http://cab.spbu.ru/files/release3.14.1/SPAdes-3.14.1-Linux.tar.gz \
+&& tar -xzf SPAdes-3.14.1-Linux.tar.gz \
+&& cp -r SPAdes-3.14.1-Linux/bin/ SPAdes-3.14.1-Linux/share/ /usr \
+&& rm -r SPAdes-3.14.1-Linux*
 
 
 

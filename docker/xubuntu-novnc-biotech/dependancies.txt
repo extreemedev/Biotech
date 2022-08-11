@@ -19,7 +19,7 @@ transabyss-2.0.1{
 }
 
 salmon-1.5.1{
-
+    https://github.com/COMBINE-lab/salmon   
 }
 
 trinityrnaseq-v2.11.0{
@@ -35,9 +35,13 @@ busco-4.1.4{
 }
 
 cd-hit-v4.8.1{
-
+    http://weizhong-lab.ucsd.edu/cd-hit/
 }
 
 FastQC{
     
+}
+
+Corset{
+    https://github.com/Oshlack/Corset
 }

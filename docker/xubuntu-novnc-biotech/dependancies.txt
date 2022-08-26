@@ -15,6 +15,37 @@ Trimmomatic-0.39{
 }
 
 transabyss-2.0.1{
+    first install ABySS and BLAT
+    -ABySS installation:
+    
+    -BLAT installation:
+
+    -abisso di trans:
+
+        $ module load python/3.6.5_miniconda-4.5.1
+        # Instead of "biology" any name can be used.
+        $ conda create -n biology python=3.7
+        $ conda activate biology
+        $ pip install python-igraph 
+
+    -testing:
+        $ module load blat/36_intel-19.0.4
+        $ module load abyss/2.2.3_gcc-5.4.0
+        $ git clone https://github.com/bcgsc/transabyss.git
+        $ cd transabyss
+        $ bash sample_dataset/assemble.sh
+        $ rm -rf sample_dataset/merged.fa  sample_dataset/test.k25  sample_dataset/test.k32
+
+    -scripts:
+        $ sudo mkdir -p /share/apps/transabyss/2.0.1/miniconda-4.5.1
+        $ sudo cp -r * /share/apps/transabyss/2.0.1/miniconda-4.5.1/*
+
+    -needed module file & its dir:
+        $ echo *insert file* > filename.
+        
+        $ sudo mkdir /share/apps/modules/transabyss
+        $ sudo mv 2.0.1_miniconda-4.5.1 /share/apps/modules/transabyss/ 
+        
 
 }
 

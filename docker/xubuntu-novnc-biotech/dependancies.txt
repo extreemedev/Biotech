@@ -15,6 +15,7 @@ Trimmomatic-0.39{
 }
 
 transabyss-2.0.1{
+    !!! da finire !!!
     first install ABySS and BLAT
     -ABySS installation:
     

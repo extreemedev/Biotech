@@ -2,7 +2,7 @@ FROM accetto/xubuntu-vnc-novnc:latest
 
 USER root
 
-
+COPY ./xfce-teal.jpg /usr/share/backgrounds/xfce/
 
 
 #       ░██████╗░█████╗░███████╗████████╗░██╗░░░░░░░██╗░█████╗░██████╗░███████╗

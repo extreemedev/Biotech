@@ -1,11 +1,11 @@
-version: "3.8"
+version: "3"
     
 services:
 
   monitor:
     container_name: monitor
-    #image: accetto/xubuntu-vnc-novnc:latest
-    image: xubuntu-vnc-novnc:sapienza
+    image: accetto/xubuntu-vnc-novnc:latest
+    #image: xubuntu-vnc-novnc:sapienza
     #image: xubunutu-novnc-biotech:latest
     #volumes:
       #- type: bind
@@ -21,24 +21,27 @@ services:
     container_name: python
     image: python:3.9-alpine
     restart: always
-
+    stdin_open: true
+    tty: true
 
   spades:
     container_name: spades
     image: staphb/spades:latest
     restart: always
-
+    stdin_open: true
+    tty: true
 
   fastqc:
     container_name: fastqc
     image: staphb/fastqc:latest
     restart: always
-
+    #command: ["/bin/bash"]
+    stdin_open: true
+    tty: true
 
   trimmomatic:
     container_name: trimmomatic
     image: staphb/trimmomatic:latest
     restart: always
-
-
-    
+    stdin_open: true
+    tty: true

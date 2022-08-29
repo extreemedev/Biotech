@@ -88,7 +88,7 @@ services:
     tty: true
 
   salmon:
-    container_name: combinelab/salmon 
+    container_name: combinelab/salmon
     image: pegi3s/soapdenovo2 
     restart: always
     stdin_open: true

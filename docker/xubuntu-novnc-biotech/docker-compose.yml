@@ -58,5 +58,40 @@ services:
     restart: always
     stdin_open: true
     tty: true
+
+  detonate:
+    container_name: detonate
+    image: nanozoo/detonate
+    restart: always
+    stdin_open: true
+    tty: true
+
+  soapdenovo:
+    container_name: soapdenovo
+    image: pegi3s/soapdenovo2 
+    restart: always
+    stdin_open: true
+    tty: true
+  
+  busco:
+    container_name: busco
+    image: ezlabgva/busco 
+    restart: always
+    stdin_open: true
+    tty: true
+  
+  corset:
+    container_name: corset
+    image: pegi3s/soapdenovo2 
+    restart: always
+    stdin_open: true
+    tty: true
+
+  salmon:
+    container_name: combinelab/salmon 
+    image: pegi3s/soapdenovo2 
+    restart: always
+    stdin_open: true
+    tty: true
   
   

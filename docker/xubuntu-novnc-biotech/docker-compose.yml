@@ -16,7 +16,13 @@ services:
       - "26901:6901"
     restart: always
 
-
+  trinity:
+    container_name: trinityrnaseq
+    image: trinityrnaseq/trinityrnaseq
+    restart: always
+    stdin_open: true
+    tty: true
+    
   python:
     container_name: python
     image: python:3.9-alpine
@@ -45,3 +51,12 @@ services:
     restart: always
     stdin_open: true
     tty: true
+
+  transabyss:
+    container_name: transabyss
+    image: ss93/transabyss-2.0.1
+    restart: always
+    stdin_open: true
+    tty: true
+  
+  

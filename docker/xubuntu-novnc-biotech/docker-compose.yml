@@ -75,7 +75,7 @@ services:
   
   busco:
     container_name: busco
-    image: ezlabgva/busco 
+    image: ezlabgva/busco:v5.4.3_cv1 
     restart: always
     stdin_open: true
     tty: true

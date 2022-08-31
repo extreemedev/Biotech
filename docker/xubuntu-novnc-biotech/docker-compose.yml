@@ -7,10 +7,10 @@ services:
     image: accetto/xubuntu-vnc-novnc:latest
     #image: xubuntu-vnc-novnc:sapienza
     #image: xubunutu-novnc-biotech:latest
-    #volumes:
-      #- type: bind
-        #source: /home/matt/app/biotech
-        #target: /home
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /home/headless/Desktop/Biotech
     ports:
       - "25901:5901"
       - "26901:6901"

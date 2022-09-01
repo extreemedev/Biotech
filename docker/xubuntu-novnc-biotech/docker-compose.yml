@@ -11,6 +11,10 @@ services:
       - type: bind
         source: ../../scripts
         target: /home/headless/Desktop/Biotech
+    user: 1000:0
+    stdin_open: true
+    tty: true
+    #command: "echo headless | sudo -S apt-get update && sudo -S apt-get install -y netcat "
     ports:
       - "25901:5901"
       - "26901:6901"
@@ -20,6 +24,8 @@ services:
     container_name: trinityrnaseq
     image: trinityrnaseq/trinityrnaseq
     restart: always
+    expose:
+    - "22"
     stdin_open: true
     tty: true
     
@@ -94,4 +100,6 @@ services:
     stdin_open: true
     tty: true
   
-  
+networks:
+  test:
+    driver: bridge

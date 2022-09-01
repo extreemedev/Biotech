@@ -5,7 +5,6 @@ services:
   monitor:
     container_name: monitor
     image: accetto/xubuntu-vnc-novnc:latest
-    #image: xubuntu-vnc-novnc:sapienza
     #image: xubunutu-novnc-biotech:latest
     user: 1000:root
     volumes:
@@ -18,7 +17,7 @@ services:
     restart: always
 
   trinity:
-    container_name: trinityrnaseq
+    container_name: trinity
     image: trinityrnaseq/trinityrnaseq
     restart: always
     stdin_open: true

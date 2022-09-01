@@ -32,4 +32,4 @@ RUN wget http://cab.spbu.ru/files/release3.14.1/SPAdes-3.14.1-Linux.tar.gz \
 RUN apt-get update && rm -rf /var/lib/apt/lists/* && apt-get clean 
 
 
-USER 1000
+USER 1001

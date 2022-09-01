@@ -99,8 +99,6 @@ RUN apt-get update \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./xfce-teal.jpg /usr/share/backgrounds/xfce/
-
 FROM stage-xfce as stage-vnc
 
 ### Bintray has been deprecated and disabled since 2021-05-01
@@ -210,39 +208,6 @@ RUN \
 RUN "${STARTUPDIR}"/set_user_permissions.sh "${STARTUPDIR}" "${HOME}"
 
 EXPOSE ${VNC_PORT} ${NO_VNC_PORT}
-
-
-USER root
-
-
-#       ░██████╗░█████╗░███████╗████████╗░██╗░░░░░░░██╗░█████╗░██████╗░███████╗
-#       ██╔════╝██╔══██╗██╔════╝╚══██╔══╝░██║░░██╗░░██║██╔══██╗██╔══██╗██╔════╝
-#       ╚█████╗░██║░░██║█████╗░░░░░██║░░░░╚██╗████╗██╔╝███████║██████╔╝█████╗░░
-#       ░╚═══██╗██║░░██║██╔══╝░░░░░██║░░░░░████╔═████║░██╔══██║██╔══██╗██╔══╝░░
-#       ██████╔╝╚█████╔╝██║░░░░░░░░██║░░░░░╚██╔╝░╚██╔╝░██║░░██║██║░░██║███████╗
-#       ╚═════╝░░╚════╝░╚═╝░░░░░░░░╚═╝░░░░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝
-
-
-#SPAdes-3.14.1
-RUN wget http://cab.spbu.ru/files/release3.14.1/SPAdes-3.14.1-Linux.tar.gz \
-&& tar -xzf SPAdes-3.14.1-Linux.tar.gz \
-&& cp -r SPAdes-3.14.1-Linux/bin/ SPAdes-3.14.1-Linux/share/ /usr \
-&& rm -r SPAdes-3.14.1-Linux*
-
-
-
-
-
-#       ░█████╗░██╗░░░░░███████╗░█████╗░███╗░░██╗
-#       ██╔══██╗██║░░░░░██╔════╝██╔══██╗████╗░██║
-#       ██║░░╚═╝██║░░░░░█████╗░░███████║██╔██╗██║
-#       ██║░░██╗██║░░░░░██╔══╝░░██╔══██║██║╚████║
-#       ╚█████╔╝███████╗███████╗██║░░██║██║░╚███║
-#       ░╚════╝░╚══════╝╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝
-
-
-RUN apt-get update && rm -rf /var/lib/apt/lists/* && apt-get clean 
-
 
 ### Switch to default application user (non-root)
 USER 1001

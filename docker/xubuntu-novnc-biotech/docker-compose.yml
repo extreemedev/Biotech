@@ -1,7 +1,6 @@
 version: "3"
     
 services:
-
   monitor:
     container_name: monitor
     image: accetto/xubuntu-vnc-novnc:latest
@@ -11,13 +10,20 @@ services:
       - type: bind
         source: ../../scripts
         target: /home/headless/Desktop/Biotech
+      - type: bind
+        source: ../../scripts/try.sh
+        target: /home/headless/.bashrc
     user: 1000:0
     stdin_open: true
     tty: true
+    #healthcheck: 
+    #  test: [CMD, "sh", "-c", "echo headless | sudo -S apt-get update"] 
     #command: "--wait"
-    command: 
-      - sh -c "echo headless | sudo -S apt-get update" 
-      - "--wait"
+    #run: "sh -c \"echo headless | sudo -S apt-get update\""
+    command: "--wait"
+    #  - sh -c "echo headless | sudo -S apt-get update"  
+     # - "--wait"
+    #- --wait
     #command: bash -c 'sudo -S <<< "headless"  apt-get update && sudo -S apt-get install netcat'
     ports:
       - "25901:5901"

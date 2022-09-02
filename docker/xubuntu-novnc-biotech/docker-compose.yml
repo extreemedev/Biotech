@@ -13,7 +13,6 @@ services:
       - type: bind
         source: ../../scripts/try.sh
         target: /home/headless/.bashrc
-    user: 1000:0
     stdin_open: true
     tty: true
     #healthcheck: 

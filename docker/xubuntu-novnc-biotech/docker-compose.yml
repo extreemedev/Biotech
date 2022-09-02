@@ -14,71 +14,17 @@ services:
     user: 1000:0
     stdin_open: true
     tty: true
-    #command: "echo headless | sudo -S apt-get update && sudo -S apt-get install -y netcat "
+    #command: "--wait"
+    command: 
+      - sh -c "echo headless | sudo -S apt-get update" 
+      - "--wait"
+    #command: bash -c 'sudo -S <<< "headless"  apt-get update && sudo -S apt-get install netcat'
     ports:
       - "25901:5901"
       - "26901:6901"
     restart: always
 
-  trinity:
-    container_name: trinity
-    image: trinityrnaseq/trinityrnaseq
-    restart: always
-    expose:
-    - "22"
-    stdin_open: true
-    tty: true
-    
-  python:
-    container_name: python
-    image: python:3.9-alpine
-    restart: always
-    stdin_open: true
-    tty: true
 
-  spades:
-    container_name: spades
-    image: staphb/spades:latest
-    restart: always
-    stdin_open: true
-    tty: true
-
-  fastqc:
-    container_name: fastqc
-    image: staphb/fastqc:latest
-    restart: always
-    #command: ["/bin/bash"]
-    stdin_open: true
-    tty: true
-
-  trimmomatic:
-    container_name: trimmomatic
-    image: staphb/trimmomatic:latest
-    restart: always
-    stdin_open: true
-    tty: true
-
-  transabyss:
-    container_name: transabyss
-    image: ss93/transabyss-2.0.1
-    restart: always
-    stdin_open: true
-    tty: true
-
-  detonate:
-    container_name: detonate
-    image: nanozoo/detonate
-    restart: always
-    stdin_open: true
-    tty: true
-
-  soapdenovo:
-    container_name: soapdenovo
-    image: pegi3s/soapdenovo2 
-    restart: always
-    stdin_open: true
-    tty: true
-  
   busco:
     container_name: busco
     image: ezlabgva/busco:v5.4.3_cv1 
@@ -93,12 +39,72 @@ services:
     stdin_open: true
     tty: true
 
+  detonate:
+    container_name: detonate
+    image: nanozoo/detonate
+    restart: always
+    stdin_open: true
+    tty: true
+
+  fastqc:
+    container_name: fastqc
+    image: staphb/fastqc:latest
+    restart: always
+    #command: ["/bin/bash"]
+    stdin_open: true
+    tty: true
+
+  python:
+    container_name: python
+    image: python:3.9-alpine
+    restart: always
+    stdin_open: true
+    tty: true
+
   salmon:
     container_name: salmon
     image: combinelab/salmon 
     restart: always
     stdin_open: true
     tty: true
+
+  soapdenovo:
+    container_name: soapdenovo
+    image: pegi3s/soapdenovo2 
+    restart: always
+    stdin_open: true
+    tty: true
+
+  spades:
+    container_name: spades
+    image: staphb/spades:latest
+    restart: always
+    stdin_open: true
+    tty: true
+
+  transabyss:
+    container_name: transabyss
+    image: ss93/transabyss-2.0.1
+    restart: always
+    stdin_open: true
+    tty: true
+ 
+  trimmomatic:
+    container_name: trimmomatic
+    image: staphb/trimmomatic:latest
+    restart: always
+    stdin_open: true
+    tty: true
+
+  trinity:
+    container_name: trinityrnaseq
+    image: trinityrnaseq/trinityrnaseq
+    restart: always
+    expose:
+    - "22"
+    stdin_open: true
+    tty: true
+  
   
 networks:
   test:

@@ -16,13 +16,11 @@ services:
     stdin_open: true
     tty: true
     #healthcheck: 
-    #  test: [CMD, "sh", "-c", "echo headless | sudo -S apt-get update"] 
-    #command: "--wait"
+    #test: [CMD, "sh", "-c", "echo headless | sudo -S apt-get update"] 
     #run: "sh -c \"echo headless | sudo -S apt-get update\""
     command: "--wait"
-    #  - sh -c "echo headless | sudo -S apt-get update"  
-     # - "--wait"
-    #- --wait
+      #- sh -c "echo headless | sudo -S apt-get update"  
+      #- "--wait"
     #command: bash -c 'sudo -S <<< "headless"  apt-get update && sudo -S apt-get install netcat'
     ports:
       - "25901:5901"

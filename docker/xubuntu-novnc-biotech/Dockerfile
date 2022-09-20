@@ -20,7 +20,7 @@ RUN wget http://cab.spbu.ru/files/release3.14.1/SPAdes-3.14.1-Linux.tar.gz \
 && rm -r SPAdes-3.14.1-Linux*
 
 
-
+#Fastqc
 
 
 #       ░█████╗░██╗░░░░░███████╗░█████╗░███╗░░██╗

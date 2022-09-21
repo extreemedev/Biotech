@@ -5,14 +5,14 @@ services:
     container_name: monitor
     image: accetto/xubuntu-vnc-novnc:latest
     #image: xubunutu-novnc-biotech:latest
-    user: 1000:root
+    user: root:root
     volumes:
       - type: bind
         source: ../../scripts
         target: /home/headless/Desktop/Biotech
-      - type: bind
-        source: ../../scripts/try.sh
-        target: /home/headless/.bashrc
+    #  - type: bind
+    #    source: ../../scripts/try.sh
+    #    target: /home/headless/.bashrc
     stdin_open: true
     tty: true
     #healthcheck: 

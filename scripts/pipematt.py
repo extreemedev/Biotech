@@ -8,15 +8,21 @@ print(client)
 # ---------------------------------------------------------------------------- #
 #                                    FastQC                                    #
 # ---------------------------------------------------------------------------- #
-
-inputfastqc = "./example.fastq.gz"
-outputfastqc = "./fastqc/"
+'''
+infastqc = "./example.fastq.gz"
+outfastqc = "./fastqc/"
 fastqc = client.containers.get("fastqc")
 print(fastqc)
-messaggioqc = fastqc.exec_run("fastqc --nogroup --extract "+ inputfastqc +" -o "+ outputfastqc , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
-print(messaggioqc)
-
+msgfastqc = fastqc.exec_run("fastqc --nogroup --extract "+ infastqc +" -o "+ outfastqc , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
+print(msgfastqc)
+'''
 # ---------------------------------------------------------------------------- #
 #                                 SPAdes-3.14.1                                #
 # ---------------------------------------------------------------------------- #
 
+inspades = "./example.fastq.gz"
+outspades = "./fastqc/"
+spades = client.containers.get("spades")
+print(spades)
+msgspades = spades.exec_run("python /SPAdes-3.15.4-Linux/bin/rnaspades.py" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
+print(msgspades)

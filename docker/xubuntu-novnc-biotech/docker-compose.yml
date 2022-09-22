@@ -85,6 +85,10 @@ services:
     container_name: spades
     image: staphb/spades:latest
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
     stdin_open: true
     tty: true
 
@@ -106,8 +110,6 @@ services:
     container_name: trinityrnaseq
     image: trinityrnaseq/trinityrnaseq
     restart: always
-    expose:
-    - "22"
     stdin_open: true
     tty: true
   

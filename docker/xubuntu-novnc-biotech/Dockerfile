@@ -28,6 +28,7 @@ RUN pip3 install biopython \
     pandas
 
 
+
 #FastQC
 RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip \
     && unzip fastqc_v0.11.9.zip -d ~/BioPrograms \
@@ -47,7 +48,9 @@ RUN wget http://cab.spbu.ru/files/release3.14.1/SPAdes-3.14.1-Linux.tar.gz \
 
 
 #Trimmomatic
-
+RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip \
+    && unzip Trimmomatic-0.39.zip -d ~/BioPrograms \
+    && rm -r Trimmomatic-0.39.zip  
 
 #Busco
 RUN git clone https://gitlab.com/ezlab/busco.git ~/BioPrograms/busco \
@@ -59,6 +62,7 @@ RUN git clone https://gitlab.com/ezlab/busco.git ~/BioPrograms/busco \
 RUN wget https://github.com/Oshlack/Corset/releases/download/version-1.09/corset-1.09-linux64.tar.gz \
     && tar -xzf corset-1.09-linux64.tar.gz --directory ~/BioPrograms --transform 's!^[^/]\+\($\|/\)!corset-1.09\1!' \
     && rm -r corset-1.09-linux64.tar.gz
+
 
 
 

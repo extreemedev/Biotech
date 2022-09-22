@@ -22,5 +22,6 @@ Terminal=false \
 StartupNotify=false" > ~/Desktop/fastqc.desktop \
 && chmod +x ~/Desktop/fastqc.desktop \
 && printf "\nFile creato correttamente\n\n" \
+&& sudo ln -s ~/Desktop/fastqc.desktop /usr/share/applications/fastqc.desktop \
 && cat ~/Desktop/fastqc.desktop \
 && printf "\n"

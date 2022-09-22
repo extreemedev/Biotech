@@ -3,9 +3,9 @@ version: "3"
 services:
   monitor:
     container_name: monitor
-    image: accetto/xubuntu-vnc-novnc:latest
-    #image: xubunutu-novnc-biotech:latest
-    user: 1000:root
+    #image: accetto/xubuntu-vnc-novnc:latest
+    image: xubuntu-novnc-biotech:latest
+    user: root:root
     volumes:
       - type: bind
         source: ../../scripts

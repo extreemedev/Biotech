@@ -4,7 +4,7 @@ services:
   monitor:
     container_name: monitor
     image: accetto/xubuntu-vnc-novnc:latest
-    #image: xubunutu-novnc-biotech:latest
+    #image: xubuntu-novnc-biotech:latest
     user: root:root
     volumes:
       - type: bind

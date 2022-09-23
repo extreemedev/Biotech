@@ -32,6 +32,10 @@ services:
     container_name: busco
     image: ezlabgva/busco:v5.4.3_cv1 
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /busco_wd
     stdin_open: true
     tty: true
   

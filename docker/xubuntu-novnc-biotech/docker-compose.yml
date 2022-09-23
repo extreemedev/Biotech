@@ -121,12 +121,13 @@ services:
     container_name: trimmomatic
     image: staphb/trimmomatic:latest
     restart: always
-    stdin_open: true
-    tty: true
     volumes:
       - type: bind
         source: ../../scripts
         target: /data
+    stdin_open: true
+    tty: true
+    
 
   trinity:
     container_name: trinityrnaseq

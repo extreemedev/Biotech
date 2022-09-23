@@ -35,6 +35,13 @@ services:
     stdin_open: true
     tty: true
   
+  cdhit:
+    container_name: cdhit
+    image: nanozoo/cdhit 
+    restart: always
+    stdin_open: true
+    tty: true
+
   corset:
     container_name: corset
     image: pegi3s/soapdenovo2 
@@ -92,12 +99,23 @@ services:
     stdin_open: true
     tty: true
  
+  transdecoder:
+    container_name: transdecoder
+    image: biocrusoe/transdecoder
+    restart: always
+    stdin_open: true
+    tty: true
+ 
   trimmomatic:
     container_name: trimmomatic
     image: staphb/trimmomatic:latest
     restart: always
     stdin_open: true
     tty: true
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
 
   trinity:
     container_name: trinityrnaseq

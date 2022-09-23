@@ -3,8 +3,8 @@ version: "3"
 services:
   monitor:
     container_name: monitor
-    image: accetto/xubuntu-vnc-novnc:latest
-    #image: xubuntu-novnc-biotech:latest
+    #image: accetto/xubuntu-vnc-novnc:latest
+    image: xubuntu-novnc-biotech:latest
     user: root:root
     volumes:
       - type: bind
@@ -32,6 +32,10 @@ services:
     container_name: busco
     image: ezlabgva/busco:v5.4.3_cv1 
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /busco_wd
     stdin_open: true
     tty: true
   
@@ -60,7 +64,10 @@ services:
     container_name: fastqc
     image: staphb/fastqc:latest
     restart: always
-    #command: ["/bin/bash"]
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
     stdin_open: true
     tty: true
 
@@ -89,6 +96,10 @@ services:
     container_name: spades
     image: staphb/spades:latest
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
     stdin_open: true
     tty: true
 
@@ -121,8 +132,6 @@ services:
     container_name: trinityrnaseq
     image: trinityrnaseq/trinityrnaseq
     restart: always
-    expose:
-    - "22"
     stdin_open: true
     tty: true
   

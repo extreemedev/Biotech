@@ -41,8 +41,12 @@ services:
   
   cdhit:
     container_name: cdhit
-    image: nanozoo/cdhit 
+    image: chrishah/cdhit:v4.8.1
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /in
     stdin_open: true
     tty: true
 

@@ -52,8 +52,12 @@ services:
 
   corset:
     container_name: corset
-    image: pegi3s/soapdenovo2 
+    image: mdiblbiocore/corset:1.0.9
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /compbio
     stdin_open: true
     tty: true
 

@@ -23,10 +23,12 @@ def Pipeline(file1,file2,threads):
     print(fastqc_msg)
     '''
 
-    monitor = client.containers.get("monitor")
     print("Monitor")
+    monitor = client.containers.get("monitor")
     monitor_msg = monitor.exec_run("fastqc", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
-    print(monitor_msg)
+    #print(monitor_msg)
+    print("Monitor: done") if int(monitor_msg.exit_code) == 0 else print("Monitor: abort\n\n",monitor_msg.output)
+
 
     with alive_bar(4) as bar:
 
@@ -44,8 +46,8 @@ def Pipeline(file1,file2,threads):
         #print(trimmomatic_msg)
         createDirs(("Trimmomatic", "Trimmomatic/trimmed_fastq", "Trimmomatic/untrimmed_fastq"))
         move = os.system("mv -f *.trim* Trimmomatic/trimmed_fastq && mv -f *.untrim* Trimmomatic/untrimmed_fastq")
-        print("Trimmomatic: done")
-        bar()
+        print("Trimmomatic: done"); bar() if int(trimmomatic_msg.exit_code) == 0 else print("Trimmomatic: abort\n\n",trimmomatic_msg.output)
+        #bar()
 
 
     # ---------------------------------------------------------------------------- #
@@ -56,9 +58,9 @@ def Pipeline(file1,file2,threads):
         print("SPAdes-3.14.1")
         spades = client.containers.get("spades")
         spades_msg = spades.exec_run("python /SPAdes-3.15.4-Linux/bin/rnaspades.py -1 Trimmomatic/trimmed_fastq/"+ file1 +".trim.fastq.gz -2 Trimmomatic/trimmed_fastq/"+ file2 +".trim.fastq.gz -o Spades " , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
-        print(spades_msg)
-        print("SPAdes-3.14.1: done")
-        bar()
+        #print(spades_msg)
+        print("SPAdes-3.14.1: done"); bar() if int(spades_msg.exit_code) == 0 else print("SPAdes-3.14.1: abort\n\n",spades_msg.output)
+        #bar()
 
 
 
@@ -71,9 +73,9 @@ def Pipeline(file1,file2,threads):
         createDir("cdhitest")
         cdhit_comm = "cd-hit-est -i example.fasta -o cdhitest/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
         cdhit_msg=cdhit.exec_run(cdhit_comm, stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/in", demux=False)
-        print(cdhit_msg)
-        bar()
-
+        #print(cdhit_msg)
+        print("CD-HIT-est-4.8.1: done"); bar() if int(cdhit_msg.exit_code) == 0 else print("CD-HIT-est-4.8.1: abort\n\n",cdhit_msg.output)
+        #bar()
 
     # ---------------------------------------------------------------------------- #
     #                                     busco                                    #
@@ -84,8 +86,9 @@ def Pipeline(file1,file2,threads):
         busco_comm = "busco -i cdhitest/cd-hit-transcripts.fasta -o busco_cd-hit-transcript \
                       --out_path busco/ --download_path busco/busco_downloads -f -c "+ threads +" -m tran --auto-lineage-euk --update-data"
         busco_msg = busco.exec_run(busco_comm , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
-        print(busco_msg)
-        bar()
+        #print(busco_msg)
+        print("busco: done"); bar() if int(busco_msg.exit_code) == 0 else print("busco: abort\n\n",busco_msg.output)
+        #bar()
 
     '''
     # ---------------------------------------------------------------------------- #

@@ -1,9 +1,9 @@
 import docker, os
 from alive_progress import alive_bar
-from mkdir import *
+from pipeExtensions import *
 import time
 
-def Pipeline(file1,file2,threads):
+def Pipeline(file1,file2,threads="16"):
 
     print("\n\n# ---------------------------------------------------------------------------- #\n"+ \
               "#                                     Pipe                                     #\n"+ \
@@ -154,4 +154,5 @@ def Pipeline(file1,file2,threads):
     '''
     remove = os.system("rm -rf __pycache__")
 
-Pipeline("SRR2589044_1", "SRR2589044_2", "16")
+input = readFile(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
+Pipeline(input[0], input[1])

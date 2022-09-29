@@ -1,0 +1,13 @@
+[Unit]
+Description=Assembly Pipeline Service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=python3 /home/matt/app/biotech/scripts/pipeProva.py
+
+[Install]
+WantedBy=multi-user.target

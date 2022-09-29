@@ -154,5 +154,10 @@ def Pipeline(file1,file2,threads="16"):
     '''
     remove = os.system("rm -rf __pycache__")
 
-input = readFile(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
-Pipeline(input[0], input[1])
+
+while True:
+    if os.path.exists(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt"):
+        input = readFile(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
+        os.remove(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
+        Pipeline(input[0], input[1])
+    time.sleep(5)

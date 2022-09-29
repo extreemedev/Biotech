@@ -1,10 +1,7 @@
 import os
 
-pip = os.system("sudo apt update && sudo apt install -y python3-pip")
-print(pip)
-
-tk = os.system("sudo apt-get update && sudo apt-get install -y python3-tk")
-print(tk)
+piptk = os.system("sudo apt-get update && sudo apt-get install -y python3-pip python3-tk cron")
+print(piptk)
 
 dockerinst = os.system("pip install docker")
 print(dockerinst)

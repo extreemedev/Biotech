@@ -154,6 +154,16 @@ def Pipeline(file1,file2,threads="16"):
     '''
     remove = os.system("rm -rf __pycache__")
 
+# ---------------------------------------------------------------------------- #
+#                                     START                                    #
+# ---------------------------------------------------------------------------- #
+    
+pid = os.getpid()
+print(pid)
+filepid = "/var/run/user/pipeline.pid"
+f = open(filepid,"w+")
+f.write(str(pid))
+f.close()
 
 while True:
     if os.path.exists(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt"):

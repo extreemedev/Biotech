@@ -10,18 +10,8 @@ services:
       - type: bind
         source: ../../scripts
         target: /home/headless/Desktop/Biotech
-    #  - type: bind
-    #    source: ../../scripts/try.sh
-    #    target: /home/headless/.bashrc
     stdin_open: true
-    tty: true
-    #healthcheck: 
-    #test: [CMD, "sh", "-c", "echo headless | sudo -S apt-get update"] 
-    #run: "sh -c \"echo headless | sudo -S apt-get update\""
-    #command: 
-      #- "--wait"
-      #- sh -c "echo headless | sudo -S apt-get update"
-    
+    tty: true   
     ports:
       - "25901:5901"
       - "26901:6901"

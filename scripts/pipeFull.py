@@ -152,6 +152,11 @@ def Pipeline(file1,file2,threads="16"):
         msg_hisat = hisat.exec_run("" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
         print(msg_hisat)
     '''
+
+    print("\n\n# ---------------------------------------------------------------------------- #\n"+ \
+              "#                                   Pipe Finished                              #\n"+ \
+              "# ---------------------------------------------------------------------------- #\n")
+
     remove = os.system("rm -rf __pycache__")
 
 # ---------------------------------------------------------------------------- #
@@ -164,8 +169,10 @@ filepid = "/var/run/user/pipeline.pid"
 f = open(filepid,"w+")
 f.write(str(pid))
 f.close()
+os.chdir("/home/matt/app/biotech/scripts/")                         #LO DA IN FASE DI SETUP L'UTENTE
 
 while True:
+    
     if os.path.exists(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt"):
         input = readFile(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
         os.remove(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")

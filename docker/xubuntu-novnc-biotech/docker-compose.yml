@@ -69,6 +69,17 @@ services:
     stdin_open: true
     tty: true
 
+  hisat:
+    container_name: hisat
+    image: nanozoo/hisat2:latest
+    restart: always
+    #volumes:
+    #  - type: bind
+    #    source: ../../scripts
+    #    target: .
+    stdin_open: true
+    tty: true
+
   python:
     container_name: python
     image: python:3.9-alpine

@@ -21,3 +21,12 @@ def readFile(file_name):
             file2 = word.strip("\n").rstrip("gz").rstrip(".").rstrip("fastq").rstrip("fasta").rstrip(".")
     file.close()
     return(file1, file2)
+
+def setWorkdir(dir_name):
+    shell_name = str(os.system("find $HOME -name "+dir_name+" -exec echo {}"))
+    print(shell_name)
+    if ("/" in str(shell_name[0])):
+        print("OK")
+        file = open(".pipedir.wd","w+")
+        file.write(str(dir_name))
+        file.close()

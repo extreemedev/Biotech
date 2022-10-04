@@ -159,17 +159,29 @@ def Pipeline(file1,file2,threads="16"):
 
     remove = os.system("rm -rf __pycache__")
 
-# ---------------------------------------------------------------------------- #
-#                                     START                                    #
-# ---------------------------------------------------------------------------- #
     
+
+# ---------------------------------------------------------------------------- #
+#                                   PID e DIR                                  #
+# ---------------------------------------------------------------------------- #
+
 pid = os.getpid()
 print(pid)
 filepid = "/var/run/user/pipeline.pid"
 f = open(filepid,"w+")
 f.write(str(pid))
 f.close()
-os.chdir("/home/matt/app/biotech/scripts/")                         #LO DA IN FASE DI SETUP L'UTENTE
+
+#wd = open(".pipedir.wd", "r")
+#pathwd = wd.readline()
+#wd.close()
+os.chdir("/home/matt/app/biotech/scripts/")       #<------ Poi passagli pathwd                  
+
+
+# ---------------------------------------------------------------------------- #
+#                                 SERVICE LOOP                                 #
+# ---------------------------------------------------------------------------- #
+
 
 while True:
     

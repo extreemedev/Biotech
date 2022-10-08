@@ -1,6 +1,6 @@
-# Headless Ubuntu/Xfce containers with VNC/noVNC
+# Multi-services docker Bioinformatics Pipeline for Assembly and Genomic Annotation
 
-## Project `accetto/xubuntu-vnc-novnc`
+## Project `/biopipeline-novnc` developed by [extreemedev][this-github-matt] & [adriIT][this-github-adri]
 
 [Docker Hub][this-docker] - [Git Hub][this-github] - [Changelog][this-changelog] - [Wiki][this-wiki] - [Hierarchy][this-wiki-image-hierarchy]
 
@@ -24,13 +24,17 @@
 
 ***
 
+### Docker compose structure
+
 This project repository contains resources for building various Docker images based on [Ubuntu][docker-ubuntu] with [Xfce][xfce] desktop environment and [VNC][tigervnc]/[noVNC][novnc] servers for headless use.
 
 The resources for the individual images and their variations are stored in the subfolders of the [Git Hub][this-github] repository and the image features are described in the individual README files. Additional descriptions can be found in the common project [Wiki][this-wiki].
 
 All images are part of a growing [image hierarchy][this-wiki-image-hierarchy].
 
-### Git Hub subfolders / Docker image sets
+***
+
+### Docker images and multi-services
 
 #### [xubuntu-vnc-novnc][this-github-xubuntu-vnc-novnc]
 
@@ -56,7 +60,11 @@ Several variations are available, including the one supporting easy pre-configur
 
 The images are streamlined and simplified versions of my other images [accetto/ubuntu-vnc-xfce-firefox-plus][accetto-docker-ubuntu-vnc-xfce-firefox-plus] and [accetto/ubuntu-vnc-xfce-firefox-default][accetto-docker-ubuntu-vnc-xfce-firefox-default].
 
-#### [utils][this-github-utils]
+***
+
+### Python Package Utils
+
+#### [/.pipePackage][this-github-utils]
   
 Contains utilities that make building the images more convenient.
 
@@ -82,13 +90,14 @@ If you do not find a solution, you can file a new issue. The better you describe
 
 ## Credits
 
-Credit goes to all the countless people and companies, who contribute to open source community and make so many dreamy things real.
+Credit goes to all the people, who contribute and provided this big cluster of docker image and resources:
 
 ***
 
-[this-docker]: https://hub.docker.com/u/accetto/
+[this-docker]: https://hub.docker.com/u/mattallev
 
-[this-github]: https://github.com/accetto/xubuntu-vnc-novnc/
+[this-github-matt]: https://github.com/extreemedev/
+[this-github-adri]: https://github.com/adriIT/
 [this-changelog]: https://github.com/accetto/xubuntu-vnc-novnc/blob/master/CHANGELOG.md
 
 [this-wiki]: https://github.com/accetto/xubuntu-vnc-novnc/wiki
@@ -139,20 +148,20 @@ Credit goes to all the countless people and companies, who contribute to open so
 
 <!-- github badges -->
 
-[badge-github-release]: https://badgen.net/github/release/accetto/xubuntu-vnc-novnc?icon=github&label=release
+[badge-github-release]: https://badgen.net/github/release/extreemedev/Biotech?icon=github&label=release
 
-[badge-github-release-date]: https://img.shields.io/github/release-date/accetto/xubuntu-vnc-novnc?logo=github
+[badge-github-release-date]: https://img.shields.io/github/release-date/extreemedev/Biotech?logo=github
 
-[badge-github-stars]: https://badgen.net/github/stars/accetto/xubuntu-vnc-novnc?icon=github&label=stars
+[badge-github-stars]: https://badgen.net/github/stars/extreemedev/Biotech?icon=github&label=stars
 
-[badge-github-forks]: https://badgen.net/github/forks/accetto/xubuntu-vnc-novnc?icon=github&label=forks
+[badge-github-forks]: https://badgen.net/github/forks/extreemedev/Biotech?icon=github&label=forks
 
-[badge-github-releases]: https://badgen.net/github/releases/accetto/xubuntu-vnc-novnc?icon=github&label=releases
+[badge-github-releases]: https://badgen.net/github/releases/extreemedev/Biotech?icon=github&label=releases
 
-[badge-github-commits]: https://badgen.net/github/commits/accetto/xubuntu-vnc-novnc?icon=github&label=commits
+[badge-github-commits]: https://badgen.net/github/commits/extreemedev/Biotech?icon=github&label=commits
 
-[badge-github-last-commit]: https://badgen.net/github/last-commit/accetto/xubuntu-vnc-novnc?icon=github&label=last%20commit
+[badge-github-last-commit]: https://badgen.net/github/last-commit/extreemedev/Biotech?icon=github&label=last%20commit
 
-[badge-github-closed-issues]: https://badgen.net/github/closed-issues/accetto/xubuntu-vnc-novnc?icon=github&label=closed%20issues
+[badge-github-closed-issues]: https://badgen.net/github/closed-issues/extreemedev/Biotech?icon=github&label=closed%20issues
 
-[badge-github-open-issues]: https://badgen.net/github/open-issues/accetto/xubuntu-vnc-novnc?icon=github&label=open%20issues
+[badge-github-open-issues]: https://badgen.net/github/open-issues/extreemedev/Biotech?icon=github&label=open%20issues

@@ -71,7 +71,8 @@ def Pipeline(file1,file2,threads="16"):
         print("CD-HIT-est-4.8.1")
         cdhit = client.containers.get('cdhit')
         createDir("cdhitest")
-        cdhit_comm = "cd-hit-est -i example.fasta -o cdhitest/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
+        cdhit_comm_old = "cd-hit-est -i example.fasta -o cdhitest/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
+        cdhit_comm = "cd-hit-est -i "+ var +" -o cdhitest/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
         cdhit_msg=cdhit.exec_run(cdhit_comm, stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/in", demux=False)
         #print(cdhit_msg)
         print("CD-HIT-est-4.8.1: done"); bar() if int(cdhit_msg.exit_code) == 0 else print("CD-HIT-est-4.8.1: abort\n\n",cdhit_msg.output)
@@ -147,8 +148,8 @@ def Pipeline(file1,file2,threads="16"):
     #                                    HISAT2                                    #
     # ---------------------------------------------------------------------------- #
 
-        hisat = client.containers.get("hisat")
         print(hisat)
+        hisat = client.containers.get("hisat")
         msg_hisat = hisat.exec_run("" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
         print(msg_hisat)
     '''

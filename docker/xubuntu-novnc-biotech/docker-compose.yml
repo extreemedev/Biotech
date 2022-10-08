@@ -1,6 +1,7 @@
 version: "3"
     
 services:
+
   monitor:
     container_name: monitor
     #image: accetto/xubuntu-vnc-novnc:latest
@@ -51,12 +52,12 @@ services:
     stdin_open: true
     tty: true
 
-  detonate:
-    container_name: detonate
-    image: nanozoo/detonate
-    restart: always
-    stdin_open: true
-    tty: true
+  #detonate:
+  #  container_name: detonate
+  #  image: nanozoo/detonate
+  #  restart: always
+  #  stdin_open: true
+  #  tty: true
 
   fastqc:
     container_name: fastqc
@@ -73,33 +74,37 @@ services:
     container_name: hisat
     image: nanozoo/hisat2:latest
     restart: always
-    #volumes:
-    #  - type: bind
-    #    source: ../../scripts
-    #    target: .
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
     stdin_open: true
     tty: true
 
-  python:
-    container_name: python
-    image: python:3.9-alpine
-    restart: always
-    stdin_open: true
-    tty: true
+  #python:
+  #  container_name: python
+  #  image: python:3.9-alpine
+  #  restart: always
+  #  stdin_open: true
+  #  tty: true
 
   salmon:
     container_name: salmon
     image: combinelab/salmon 
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
     stdin_open: true
     tty: true
 
-  soapdenovo:
-    container_name: soapdenovo
-    image: pegi3s/soapdenovo2 
-    restart: always
-    stdin_open: true
-    tty: true
+  #soapdenovo:
+  #  container_name: soapdenovo
+  #  image: pegi3s/soapdenovo2 
+  #  restart: always
+  #  stdin_open: true
+  #  tty: true
 
   spades:
     container_name: spades
@@ -112,12 +117,12 @@ services:
     stdin_open: true
     tty: true
 
-  transabyss:
-    container_name: transabyss
-    image: ss93/transabyss-2.0.1
-    restart: always
-    stdin_open: true
-    tty: true
+  #transabyss:
+  #  container_name: transabyss
+  #  image: ss93/transabyss-2.0.1
+  #  restart: always
+  #  stdin_open: true
+  #  tty: true
  
   transdecoder:
     container_name: transdecoder
@@ -138,12 +143,12 @@ services:
     tty: true
     
 
-  trinity:
-    container_name: trinityrnaseq
-    image: trinityrnaseq/trinityrnaseq
-    restart: always
-    stdin_open: true
-    tty: true
+  #trinity:
+  #  container_name: trinityrnaseq
+  #  image: trinityrnaseq/trinityrnaseq
+  #  restart: always
+  #  stdin_open: true
+  #  tty: true
   
   
 networks:

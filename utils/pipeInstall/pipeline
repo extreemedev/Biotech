@@ -8,7 +8,7 @@
 start() {
    # code to start app comes here 
    # example: daemon program_name &
-   /usr/bin/python3 /home/matt/app/biotech/scripts/pipeFull.py&
+   /usr/bin/python3 /home/matt/app/biotech/utils/pipePackage/pipeFull.py&
 }
 
 stop() {

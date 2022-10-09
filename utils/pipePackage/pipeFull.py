@@ -9,6 +9,13 @@ def Pipeline(file1,file2,threads="16"):
               "#                                     Pipe                                     #\n"+ \
               "# ---------------------------------------------------------------------------- #\n")
 
+    dir_trimmomatic = "Trimmomatic"
+    dir_trimmomatic_trim = "Trimmomatic/trimmed_fastq"
+    dir_trimmomatic_unpaired = "Trimmomatic/untrimmed_fastq"
+    dir_spades = "Spades"
+    dir_cdhit = "Cdhitest"
+    dir_busco = "Busco"
+    dir_hisat = "Hisat"
     client = docker.from_env()
 
     # ---------------------------------------------------------------------------- #
@@ -22,7 +29,6 @@ def Pipeline(file1,file2,threads="16"):
     fastqc_msg = fastqc.exec_run("fastqc --nogroup --extract "+ fastqc_in +" -o "+ fastqc_out , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
     print(fastqc_msg)
     '''
-
     print("Monitor")
     monitor = client.containers.get("monitor")
     monitor_msg = monitor.exec_run("fastqc", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
@@ -30,7 +36,7 @@ def Pipeline(file1,file2,threads="16"):
     print("Monitor: done") if int(monitor_msg.exit_code) == 0 else print("Monitor: abort\n\n",monitor_msg.output)
 
 
-    with alive_bar(4) as bar:
+    with alive_bar(5) as bar:
 
     # ---------------------------------------------------------------------------- #
     #                                  Trimmomatic                                 #
@@ -38,14 +44,14 @@ def Pipeline(file1,file2,threads="16"):
 
         print("Trimmomatic")
         trimmomatic = client.containers.get('trimmomatic')
-        trimmomatic_comm = "trimmomatic PE "+ file1 +".fastq.gz "+ file2 +".fastq.gz \
+        trimmomatic_comm = "trimmomatic PE "+ file1 +".fastq "+ file2 +".fastq \
             "+ file1 +".trim.fastq.gz "+ file1 +".untrim.fastq.gz \
             "+ file2 +".trim.fastq.gz "+ file2 +".untrim.fastq.gz \
             ILLUMINACLIP:/Trimmomatic-0.39/adapters/NexteraPE-PE.fa:2:40:15 SLIDINGWINDOW:4:20 MINLEN:25 -threads " + threads
         trimmomatic_msg = trimmomatic.exec_run(trimmomatic_comm, stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
+        createDirs((dir_trimmomatic, dir_trimmomatic_trim, dir_trimmomatic_unpaired))
+        move = os.system("mv -f *.trim* " + dir_trimmomatic_trim + " && mv -f *.untrim* " + dir_trimmomatic_unpaired)
         #print(trimmomatic_msg)
-        createDirs(("Trimmomatic", "Trimmomatic/trimmed_fastq", "Trimmomatic/untrimmed_fastq"))
-        move = os.system("mv -f *.trim* Trimmomatic/trimmed_fastq && mv -f *.untrim* Trimmomatic/untrimmed_fastq")
         print("Trimmomatic: done"); bar() if int(trimmomatic_msg.exit_code) == 0 else print("Trimmomatic: abort\n\n",trimmomatic_msg.output)
         #bar()
 
@@ -57,7 +63,7 @@ def Pipeline(file1,file2,threads="16"):
 
         print("SPAdes-3.14.1")
         spades = client.containers.get("spades")
-        spades_msg = spades.exec_run("python /SPAdes-3.15.4-Linux/bin/rnaspades.py -1 Trimmomatic/trimmed_fastq/"+ file1 +".trim.fastq.gz -2 Trimmomatic/trimmed_fastq/"+ file2 +".trim.fastq.gz -o Spades " , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
+        spades_msg = spades.exec_run("python /SPAdes-3.15.4-Linux/bin/rnaspades.py -1 "+ dir_trimmomatic_trim +"/"+ file1 +".trim.fastq.gz -2 "+ dir_trimmomatic_trim +"/"+ file2 +".trim.fastq.gz -o "+dir_spades , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
         #print(spades_msg)
         print("SPAdes-3.14.1: done"); bar() if int(spades_msg.exit_code) == 0 else print("SPAdes-3.14.1: abort\n\n",spades_msg.output)
         #bar()
@@ -67,29 +73,39 @@ def Pipeline(file1,file2,threads="16"):
     # ---------------------------------------------------------------------------- #
     #                                  CD-HIT-est                                  #
     # ---------------------------------------------------------------------------- #
-        var = "Spades/transcripts.fasta"
+
         print("CD-HIT-est-4.8.1")
+        createDir(dir_cdhit)
         cdhit = client.containers.get('cdhit')
-        createDir("cdhitest")
-        cdhit_comm_old = "cd-hit-est -i example.fasta -o cdhitest/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
-        cdhit_comm = "cd-hit-est -i "+ var +" -o cdhitest/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
+        cdhit_comm = "cd-hit-est -i "+ dir_spades +"/transcripts.fasta -o "+ dir_cdhit +"/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
         cdhit_msg=cdhit.exec_run(cdhit_comm, stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/in", demux=False)
         #print(cdhit_msg)
         print("CD-HIT-est-4.8.1: done"); bar() if int(cdhit_msg.exit_code) == 0 else print("CD-HIT-est-4.8.1: abort\n\n",cdhit_msg.output)
         #bar()
 
     # ---------------------------------------------------------------------------- #
-    #                                     busco                                    #
+    #                                     BUSCO                                    #
     # ---------------------------------------------------------------------------- #
 
-        print("busco")
+        print("BUSCO")
         busco = client.containers.get("busco")
-        busco_comm = "busco -i cdhitest/cd-hit-transcripts.fasta -o busco_cd-hit-transcript \
-                      --out_path busco/ --download_path busco/busco_downloads -f -c "+ threads +" -m tran --auto-lineage-euk --update-data"
+        busco_comm = "busco -i "+ dir_cdhit +"/cd-hit-transcripts.fasta -o busco_cd-hit-transcript \
+                      --out_path "+ dir_busco +"/ --download_path "+ dir_busco +"/busco_downloads -f -c "+ threads +" -m tran --auto-lineage-euk --update-data"
         busco_msg = busco.exec_run(busco_comm , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
         #print(busco_msg)
-        print("busco: done"); bar() if int(busco_msg.exit_code) == 0 else print("busco: abort\n\n",busco_msg.output)
+        print("BUSCO: done"); bar() if int(busco_msg.exit_code) == 0 else print("busco: abort\n\n",busco_msg.output)
         #bar()
+
+    # ---------------------------------------------------------------------------- #
+    #                                    HISAT2                                    #
+    # ---------------------------------------------------------------------------- #
+
+        print("HISAT2")
+        createDir(dir_hisat)
+        hisat = client.containers.get("hisat")   
+        msg_hisat = hisat.exec_run("hisat2-build "+ dir_cdhit +"/cd-hit-transcripts.fasta analyzed_genome" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data", demux=False)
+        #msg_hisat = hisat.exec_run("" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
+        print(msg_hisat)
 
     '''
     # ---------------------------------------------------------------------------- #
@@ -144,14 +160,7 @@ def Pipeline(file1,file2,threads="16"):
         print(msg_salmon)
 
 
-    # ---------------------------------------------------------------------------- #
-    #                                    HISAT2                                    #
-    # ---------------------------------------------------------------------------- #
-
-        print(hisat)
-        hisat = client.containers.get("hisat")
-        msg_hisat = hisat.exec_run("" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
-        print(msg_hisat)
+    
     '''
 
     print("\n\n# ---------------------------------------------------------------------------- #\n"+ \

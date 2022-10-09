@@ -88,16 +88,16 @@ services:
   #  stdin_open: true
   #  tty: true
 
-  salmon:
-    container_name: salmon
-    image: combinelab/salmon 
-    restart: always
-    volumes:
-      - type: bind
-        source: ../../scripts
-        target: /data
-    stdin_open: true
-    tty: true
+  #salmon:
+  #  container_name: salmon
+  #  image: combinelab/salmon 
+  #  restart: always
+  #  volumes:
+  #    - type: bind
+  #      source: ../../scripts
+  #      target: /data
+  #  stdin_open: true
+  #  tty: true
 
   #soapdenovo:
   #  container_name: soapdenovo

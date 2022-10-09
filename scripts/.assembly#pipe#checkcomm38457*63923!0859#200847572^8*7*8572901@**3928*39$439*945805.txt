@@ -1,2 +1,0 @@
-/home/headless/Desktop/Biotech/SRR2589044_1.fastq.gz
-/home/headless/Desktop/Biotech/SRR2589044_2.fastq.gz

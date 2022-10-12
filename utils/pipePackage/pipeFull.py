@@ -3,7 +3,7 @@ from alive_progress import alive_bar
 from pipeExtensions import *
 import time
 
-def Pipeline(file1,file2,threads="16"):
+def Pipeline(pipename,file1,file2,threads="16"):
 
     print("\n\n# ---------------------------------------------------------------------------- #\n"+ \
               "#                                     Pipe                                     #\n"+ \
@@ -93,19 +93,34 @@ def Pipeline(file1,file2,threads="16"):
                       --out_path "+ dir_busco +"/ --download_path "+ dir_busco +"/busco_downloads -f -c "+ threads +" -m tran --auto-lineage-euk --update-data"
         busco_msg = busco.exec_run(busco_comm , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
         #print(busco_msg)
-        print("BUSCO: done"); bar() if int(busco_msg.exit_code) == 0 else print("busco: abort\n\n",busco_msg.output)
+        print("BUSCO: done"); bar() if int(busco_msg.exit_code) == 0 else print("BUSCO: abort\n\n",busco_msg.output,".\n\n")
         #bar()
 
     # ---------------------------------------------------------------------------- #
     #                                    HISAT2                                    #
     # ---------------------------------------------------------------------------- #
 
-        print("HISAT2")
+        print("HISAT2 - Building indexes")
         createDir(dir_hisat)
         hisat = client.containers.get("hisat")   
-        msg_hisat = hisat.exec_run("hisat2-build "+ dir_cdhit +"/cd-hit-transcripts.fasta analyzed_genome" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data", demux=False)
-        #msg_hisat = hisat.exec_run("" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
-        print(msg_hisat)
+        hisat_msg = hisat.exec_run("hisat2-build /data/"+dir_cdhit+"/cd-hit-transcripts.fasta "+pipename+"_index" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/"+dir_hisat, demux=False)
+        print("HISAT2 - Building indexes: done"); bar() if int(hisat_msg.exit_code) == 0 else print("HISAT2 - Building indexes: abort\n\n",hisat_msg.output)
+        
+        print("HISAT2 - Building SAM file")
+        hisat_comm="hisat2 -p "+threads+" --dta -q -x /data/"+dir_hisat+"/"+pipename+"_index \
+                    -1 /data/"+dir_trimmomatic_trim+"/"+file1+".trim.fastq.gz \
+                    -2 /data/"+dir_trimmomatic_trim+"/"+file2+".trim.fastq.gz \
+                    -U /data/"+dir_trimmomatic_unpaired+"/"+file1+".untrim.fastq.gz \
+                    -U /data/"+dir_trimmomatic_unpaired+"/"+file2+".untrim.fastq.gz \
+                    -S /data/"+pipename+".sam"
+        hisat_msg = hisat.exec_run(hisat_comm, stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/"+dir_hisat, demux=False)
+        print("HISAT2 - Building SAM file: done"); bar() if int(hisat_msg.exit_code) == 0 else print("HISAT2 - Building SAM file: abort\n\n",hisat_msg.output)
+        
+        print("Samtools - Converting SAM to BAM")
+        hisat_msg = hisat.exec_run("samtools index /data/"+pipename+".sam && samtools view -S -b /data/"+pipename+".sam > /data/"+pipename+".bam", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/"+dir_hisat, demux=False)
+        print("Samtools - Converting SAM to BAM: done"); bar() if int(hisat_msg.exit_code) == 0 else print("Samtools - Converting SAM to BAM: abort\n\n",hisat_msg.output)
+        print(hisat_msg)
+        
 
     '''
     # ---------------------------------------------------------------------------- #
@@ -114,7 +129,7 @@ def Pipeline(file1,file2,threads="16"):
 
         print("Corset")
         corset = client.containers.get("corset")
-        msg_corset = corset.exec_run("corset" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
+        msg_corset = corset.exec_run("corset -g 1,1,1,2,2,2 -n A1,A2,A3,B1,B2,B3 *.bam" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
         print(msg_corset)
         bar()
 
@@ -167,7 +182,7 @@ def Pipeline(file1,file2,threads="16"):
               "#                                   Pipe Finished                              #\n"+ \
               "# ---------------------------------------------------------------------------- #\n")
 
-    remove = os.system("rm -rf __pycache__")
+    remove = os.system("rm -rf ../utils/pipePackage/__pycache__")
 
     
 
@@ -198,5 +213,5 @@ while True:
     if os.path.exists(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt"):
         input = readFile(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
         os.remove(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
-        Pipeline(input[0], input[1])
+        Pipeline(input[0], input[1], input[2])
     time.sleep(5)

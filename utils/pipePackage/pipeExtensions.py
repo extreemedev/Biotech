@@ -11,6 +11,7 @@ def createDir(dir_name):
 
 def readFile(file_name):
     file = open(file_name,"r")
+    pipename = file.readline().strip("\n")
     string1 = file.readline().split("/")
     string2 = file.readline().split("/")
     for word in string1:
@@ -20,7 +21,7 @@ def readFile(file_name):
         if word.endswith("\n"):
             file2 = word.strip("\n").rstrip("gz").rstrip(".").rstrip("fastq").rstrip("fasta").rstrip(".")
     file.close()
-    return(file1, file2)
+    return(pipename, file1, file2)
 
 def setWorkdir(dir_name):
     shell_name = str(os.system("find $HOME -name "+dir_name+" -exec echo {}"))

@@ -128,6 +128,10 @@ services:
     container_name: transdecoder
     image: biocrusoe/transdecoder
     restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
     stdin_open: true
     tty: true
  

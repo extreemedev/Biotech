@@ -31,3 +31,9 @@ def setWorkdir(dir_name):
         file = open(".pipedir.wd","w+")
         file.write(str(dir_name))
         file.close()
+
+def readWorkdir():
+    file = open("/opt/pipeline/etc/workdir.config","r")
+    workdir = file.readline()
+    file.close()
+    return(workdir)

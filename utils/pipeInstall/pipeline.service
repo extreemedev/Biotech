@@ -7,7 +7,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=python3 /home/matt/app/biotech/utils/pipePackage/pipeFull.py
+ExecStart=/usr/bin/python3 /opt/pipeline/bin/pipeFull.py
 
 [Install]
 WantedBy=multi-user.target

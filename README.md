@@ -2,7 +2,7 @@
 
 ## Project `/biopipeline-novnc` developed by [extreemedev][this-github-matt] & [adriIT][this-github-adri]
 
-[Docker Hub][this-docker] - [Git Hub][this-github] - [Changelog][this-changelog] - [Wiki][this-wiki] - [Hierarchy][this-wiki-image-hierarchy]
+[Docker Hub][this-docker] - [Changelog][this-changelog] - [Wiki][this-wiki] - [Hierarchy][this-wiki-image-hierarchy]
 
 ***
 
@@ -24,7 +24,7 @@
 
 ***
 
-### Docker compose structure
+## Docker compose structure
 
 This project repository contains resources for building various Docker images based on [Ubuntu][docker-ubuntu] with [Xfce][xfce] desktop environment and [VNC][tigervnc]/[noVNC][novnc] servers for headless use.
 
@@ -34,9 +34,9 @@ All images are part of a growing [image hierarchy][this-wiki-image-hierarchy].
 
 ***
 
-### Docker images and multi-services
+## Docker images and multi-services
 
-#### [xubuntu-vnc-novnc][this-github-xubuntu-vnc-novnc]
+### [xubuntu-vnc-novnc][this-github-xubuntu-vnc-novnc]
 
 Contains resources for building [accetto/xubuntu-vnc-novnc][this-docker-xubuntu-vnc-novnc] base images.
 
@@ -62,13 +62,23 @@ The images are streamlined and simplified versions of my other images [accetto/u
 
 ***
 
-### Python Package Utils
+## Python Package Utils
 
-#### [/.pipePackage][this-github-utils]
+### Can be found here: [/utils/][this-github-utils]
   
-Contains utilities that make building the images more convenient.
+Contains utilities that make building the images more convenient and helps out the user get a full clean installation and uninstallation, plus various settings:
 
-- `util-hdx.sh`  
+- `utils/pipeInstall/`  
+
+  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
+  
+
+- `utils/pipePackage/`  
+
+  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
+  
+
+- `utils/util-hdx.sh`  
 
   Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
   
@@ -76,11 +86,41 @@ Contains utilities that make building the images more convenient.
 
   The utility displays the help if started with the `-h` or `--help` argument. It has been developed using my other utilities `utility-argbash-init.sh` and `utility-argbash.sh`, contained in the [accetto/argbash-docker][accetto-github-argbash-docker-utils] Git Hub repository, from which the [accetto/argbash-docker][accetto-docker-argbash-docker] Docker image is built.
 
-- `util-refresh-readme.sh`  
+- `utils/util-refresh-readme.sh`  
   
   This script can be used for updating the `version sticker` badges in README files. It is intended for local use before publishing the repository.
 
   The script does not include any help, because it takes only a single argument - the path where to start searching for files (default is `../docker`).
+
+***
+
+## Installation
+
+**Attention!** To install this full pipeline service, you'll need to be **root** or a **sudoer user**.
+
+Now, in order to install the entire service, move inside `/utils/pipeInstall/` and run the python installing script, with the following command:
+```
+python3 pipeInstall.py
+```
+All needed dependancies will be installed and this tree directory structure will be created on your operative system (starting from the root):
+```
+/opt/
+  |
+  ├─ pipeline/
+        |
+        ├─ bin/
+        |
+        ├─ etc/
+        |
+        ├─ lib/
+        |
+        ├─ log/
+        |
+        ├─ opt/
+        |
+        ├─ var/
+```
+
 
 ## Issues
 
@@ -88,9 +128,22 @@ If you have found a problem or you just have a question, please check the [Issue
 
 If you do not find a solution, you can file a new issue. The better you describe the problem, the bigger the chance it'll be solved soon.
 
+***
+
+## Uninstallation
+
+**Attention!** To uninstall this full pipeline service, you'll need to be **root** or a **sudoer user**. Consider that, uninstalling this service, will also destroy your cloned repository.
+
+If you have the need to remove this service, or you are having trouble with filesystem conflicts or anything else, please use our one-step uninstall script. Please move inside `/utils/pipeInstall/` and use the following command:
+```
+python3 pipeUninstall.py
+```
+The service will be removed from `/etc/init.d`, all files will be deleted and the tree directory structure will be purged. If you would like to reinstall it, you'll have to clone this repository again and repeat the process of installation.
+***
+
 ## Credits
 
-Credit goes to all the people, who contribute and provided this big cluster of docker image and resources:
+Credit goes to all the people, who contribute and provided this big cluster of docker images and resources:
 
 ***
 
@@ -98,14 +151,14 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 [this-github-matt]: https://github.com/extreemedev/
 [this-github-adri]: https://github.com/adriIT/
-[this-changelog]: https://github.com/accetto/xubuntu-vnc-novnc/blob/master/CHANGELOG.md
+[this-changelog]: https://github.com/extreemedev/Biotech/tree/master/CHANGELOG.md
 
-[this-wiki]: https://github.com/accetto/xubuntu-vnc-novnc/wiki
+[this-wiki]: https://github.com/extreemedev/Biotech/wiki
 [this-wiki-image-hierarchy]: https://github.com/accetto/xubuntu-vnc-novnc/wiki/Image-hierarchy
 
-[this-issues]: https://github.com/accetto/xubuntu-vnc-novnc/issues
+[this-issues]: https://github.com/extreemedev/Biotech/issues
 
-[this-github-utils]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/utils/
+[this-github-utils]: https://github.com/extreemedev/Biotech/tree/master/utils
 
 [this-github-xubuntu-vnc-novnc]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/docker/xubuntu-vnc-novnc/
 [this-docker-xubuntu-vnc-novnc]: https://hub.docker.com/r/accetto/xubuntu-vnc-novnc/

@@ -130,6 +130,16 @@ If you do not find a solution, you can file a new issue. The better you describe
 
 ***
 
+## Running the service and Usage
+**Watch out!** Before running and using the service you'll need to perform the previous step.
+
+Now, you are ready to run the service and suddenly execute the pipeline. Everytime you will need to execute the pipeline, please type the following command:
+```
+sudo service pipeline start
+```
+
+***
+
 ## Uninstallation
 
 **Attention!** To uninstall this full pipeline service, you'll need to be **root** or a **sudoer user**. Consider that, uninstalling this service, will also destroy your cloned repository.
@@ -146,6 +156,19 @@ The service will be removed from `/etc/init.d`, all files will be deleted and th
 Credit goes to all the people, who contribute and provided this big cluster of docker images and resources:
 
 ***
+
+## To-do-list
+
+
+-Startare e riavviare servizio Compose
+
+-Gestire Monitor/FastQC
+
+-Risolvere Busco
+
+-Creare il logger
+
+-Rivedere il pull e installazione (prima di esame)
 
 [this-docker]: https://hub.docker.com/u/mattallev
 

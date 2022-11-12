@@ -19,6 +19,18 @@ services:
     restart: always
 
 
+  biopython:
+    container_name: biopython
+    image: biocontainers/biopython:v1.73dfsg-1-deb-py3_cv1
+    restart: always
+    volumes:
+      - type: bind
+        source: ../../scripts
+        target: /data
+    stdin_open: true
+    tty: true
+
+
   busco:
     container_name: busco
     image: ezlabgva/busco:v5.4.3_cv1 

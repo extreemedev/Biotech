@@ -1,13 +1,12 @@
 import os
 
-def createDirs(dir_names):
-    for dir in dir_names:
-        if not os.path.isdir("./"+dir):
-            os.mkdir(dir)
+def createDirs(dir_paths):
+    for dir in dir_paths:
+        createDir(dir)
 
-def createDir(dir_name):
-    if not os.path.isdir("./"+dir_name):
-        os.mkdir(dir_name)
+def createDir(dir_path):
+    if not os.path.isdir(dir_path):
+        os.mkdir(dir_path)
 
 def readFile(file_name):
     file = open(file_name,"r")
@@ -22,15 +21,6 @@ def readFile(file_name):
             file2 = word.strip("\n").rstrip("gz").rstrip(".").rstrip("fastq").rstrip("fasta").rstrip(".")
     file.close()
     return(pipename, file1, file2)
-
-def setWorkdir(dir_name):
-    shell_name = str(os.system("find $HOME -name "+dir_name+" -exec echo {}"))
-    print(shell_name)
-    if ("/" in str(shell_name[0])):
-        print("OK")
-        file = open(".pipedir.wd","w+")
-        file.write(str(dir_name))
-        file.close()
 
 def readWorkdir():
     file = open("/opt/pipeline/etc/workdir.config","r")

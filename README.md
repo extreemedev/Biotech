@@ -157,18 +157,31 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 ***
 
-## To-do-list
+## To-Do-List
+
+- [X] Administrate Monitor/FastQC
+
+- [X] Create logger/log files
+
+- [X] Check the service status (def .py) within n-start of pipeline.service
+
+- [ ] Resolve def readWorkdir()
+
+- [ ] Optimize logger stout lines
+
+- [ ] Give back to user command prompt
+
+- [ ] Automated start and restart of Compose Service
+
+- [ ] Pipeline loading script
+
+- [ ] Echo in pipeline.sh ("\n")
+
+- [ ] Resolve Busco problem
+
+- [ ] Check pull & installation (before the exam)
 
 
--Startare e riavviare servizio Compose
-
--Gestire Monitor/FastQC
-
--Risolvere Busco
-
--Creare il logger
-
--Rivedere il pull e installazione (prima di esame)
 
 [this-docker]: https://hub.docker.com/u/mattallev
 

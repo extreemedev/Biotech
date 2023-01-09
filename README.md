@@ -165,7 +165,7 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [X] Check the service status (def .py) within n-start of pipeline.service
 
-- [ ] Resolve def readWorkdir()
+- [X] Resolve def readWorkdir()
 
 - [ ] Optimize logger stout lines
 

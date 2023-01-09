@@ -7,13 +7,14 @@ import os
 piptk = os.system("sudo apt-get update && sudo apt-get install -y python3-pip")
 dockerinst = os.system("sudo pip install docker")
 alive = os.system("sudo pip install alive-progress")
-biopython = os.system("sudo pip install biopython")
 
 # ---------------------------------------------------------------------------- #
 #                                 WORKDIR TREE                                 #
 # ---------------------------------------------------------------------------- #
 
 workdir = os.getcwd().rstrip("/pipeInstall").rstrip("utils")
+if workdir[-1] != "/":
+     workdir+="/"
 
 """
 /opt/

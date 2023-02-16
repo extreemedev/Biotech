@@ -2,15 +2,11 @@ FROM accetto/xubuntu-vnc-novnc:latest
 
 USER root
 
-COPY ./xfce-teal.jpg /usr/share/backgrounds/xfce/
+COPY ./src/xfce-teal.jpg /usr/share/backgrounds/xfce/
 
+COPY ./hooks/fastQC.sh /home/headless/BioPrograms/
 
-#       ░██████╗░█████╗░███████╗████████╗░██╗░░░░░░░██╗░█████╗░██████╗░███████╗
-#       ██╔════╝██╔══██╗██╔════╝╚══██╔══╝░██║░░██╗░░██║██╔══██╗██╔══██╗██╔════╝
-#       ╚█████╗░██║░░██║█████╗░░░░░██║░░░░╚██╗████╗██╔╝███████║██████╔╝█████╗░░
-#       ░╚═══██╗██║░░██║██╔══╝░░░░░██║░░░░░████╔═████║░██╔══██║██╔══██╗██╔══╝░░
-#       ██████╔╝╚█████╔╝██║░░░░░░░░██║░░░░░╚██╔╝░╚██╔╝░██║░░██║██║░░██║███████╗
-#       ╚═════╝░░╚════╝░╚═╝░░░░░░░░╚═╝░░░░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝
+#RUN /home/headless/BioPrograms/fastQC.sh
 
 #Various sets
 RUN sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1 \
@@ -26,13 +22,13 @@ RUN pip3 install easygui
 
 
 ##FastQC
-#RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip \
-#    && unzip fastqc_v0.11.9.zip -d ~/BioPrograms \
-#    && rm -r fastqc_v0.11.9.zip \
-#    && chmod 755 ~/BioPrograms/FastQC/fastqc \
-#    && sudo ln -s ~/BioPrograms/FastQC/fastqc /usr/local/bin/fastqc \
-#    && sudo ln -s ~/Desktop/fastqc.desktop /usr/share/applications/fastqc.desktop
-#    #importante questo sopra, serve a collegare nella page delle applicazioni, ed ha anche il potere di lanciare TOP
+RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip \
+    && unzip fastqc_v0.11.9.zip -d /home/headless/BioPrograms \
+    && rm -r fastqc_v0.11.9.zip \
+    && chmod 755 /home/headless/BioPrograms/FastQC/fastqc \
+    && sudo ln -s /home/headless/BioPrograms/FastQC/fastqc /usr/local/bin/fastqc \
+    && sudo ln -s /home/headless/Desktop/fastqc.desktop /usr/share/applications/fastqc.desktop
+    #importante questo sopra, serve a collegare nella page delle applicazioni, ed ha anche il potere di lanciare
 #
 #
 #
@@ -55,15 +51,7 @@ RUN pip3 install easygui
 #    && rm -r corset-1.09-linux64.tar.gz
 #
 
-
-
-#       ░█████╗░██╗░░░░░███████╗░█████╗░███╗░░██╗
-#       ██╔══██╗██║░░░░░██╔════╝██╔══██╗████╗░██║
-#       ██║░░╚═╝██║░░░░░█████╗░░███████║██╔██╗██║
-#       ██║░░██╗██║░░░░░██╔══╝░░██╔══██║██║╚████║
-#       ╚█████╔╝███████╗███████╗██║░░██║██║░╚███║
-#       ░╚════╝░╚══════╝╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝
-
+#Clean
 RUN apt-get update && rm -rf /var/lib/apt/lists/* && apt autoremove && apt-get clean 
 
 

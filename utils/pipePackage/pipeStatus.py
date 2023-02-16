@@ -66,3 +66,4 @@ def findProcessIdByName(processName):
 
 if __name__ == "__main__":
     drawStatus()
+    quit(1)

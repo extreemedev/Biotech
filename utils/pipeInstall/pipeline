@@ -35,18 +35,24 @@ case "$1" in
       start
       sleep 2
       status
+      exit 0
       ;;
    stop)
       stop
       status
+      exit 0
       ;;
    restart)
       stop
+      echo "Restarting service..."
       start
+      sleep 2
       status
+      exit 0
       ;;
    status)
       status
+      exit 0
       ;;
    *)
       echo "Usage: $0 {start|stop|restart}"

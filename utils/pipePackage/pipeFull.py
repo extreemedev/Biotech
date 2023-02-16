@@ -52,7 +52,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
    
     print("init: Monitor")
     monitor = client.containers.get("monitor")
-    monitor_msg = monitor.exec_run("echo hello", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
+    monitor_msg = monitor.exec_run("echo Hello World!", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
     #print(monitor_msg)
     if int(monitor_msg.exit_code) == 0:
         print("init: Monitor: done")
@@ -265,7 +265,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
               "# ---------------------------------------------------------------------------- #\n")
 
     #remove = os.system("rm -rf ../utils/pipePackage/__pycache__")
-
+    """
     print("\n\n# ---------------------------------------------------------------------------- #\n"+ \
               "#                         Pipeline Activated (Waiting...)                      #\n"+ \
               "# ---------------------------------------------------------------------------- #\n"+ \
@@ -275,7 +275,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
               "#  Process Id: "+str(pid)+"                                                           #\n"+ \
               "#                                                                              #\n"+ \
               "# ---------------------------------------------------------------------------- #\n") \
-
+    """
 
 
 # ---------------------------------------------------------------------------- #

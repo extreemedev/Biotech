@@ -177,6 +177,10 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [ ] Echo in pipeline.sh ("\n")
 
+- [ ] Line 11 in pipeline.sh
+
+- [ ] Installation directory Dockerfile programs and sources
+
 - [ ] Resolve Busco problem
 
 - [ ] Check pull & installation (before the exam)

@@ -8,32 +8,51 @@
 start() {
    # code to start app comes here 
    # example: daemon program_name &
-   /usr/bin/python3 /opt/pipeline/bin/pipeFull.py&
+   #/usr/bin/python3 /opt/pipeline/bin/pipeFull.py&
+   /usr/bin/python3 /home/matt/app/biotech/utils/pipePackage/pipeFull.py&
 }
 
 stop() {
    # code to stop app comes here 
    # example: killproc program_name
-   kill -9 `cat /var/run/user/pipeline.pid`
+   kill -9 `cat /opt/pipeline/var/pipeline.pid`
    if [ "$?" -ne "0" ]
    then
-      echo "Something went wrong while killing the pipeline"
+      echo "Something went wrong while killing the service. If you are having some troubles, please check the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md"
    else
-      echo "Pipeline brutally stopped."
+      echo "The service has been brutally stopped. Check the documentation, to report any strange or unexpected stop/crash: https://github.com/extreemedev/Biotech/blob/master/README.md"
    fi
 
+}
+
+status() {
+   # code to show app status comes here 
+   /usr/bin/python3 /home/matt/app/biotech/utils/pipePackage/pipeStatus.py&
 }
 
 case "$1" in 
    start)
       start
+      sleep 2
+      status
+      exit 0
       ;;
    stop)
       stop
+      status
+      exit 0
       ;;
    restart)
       stop
+      echo "Restarting service..."
       start
+      sleep 2
+      status
+      exit 0
+      ;;
+   status)
+      status
+      exit 0
       ;;
    *)
       echo "Usage: $0 {start|stop|restart}"

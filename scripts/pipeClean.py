@@ -1,7 +1,7 @@
 import os
 
 print("\n")
-pathlist = "Trimmomatic", "Spades", "Cdhitest", "Busco", "Hisat", "__pycache__"
+pathlist = ".Trash-0", "SSRresize", "Trimmomatic", "Spades", "Cdhitest", "Busco", "Hisat", "Transdecoder", "__pycache__"
 for i in pathlist:
     if os.path.exists(i):
         remove = os.system("rm -rf ./"+i)

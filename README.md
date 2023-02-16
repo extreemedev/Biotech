@@ -131,11 +131,64 @@ If you have found a problem or you just have a question, please check the [Issue
 
 If you do not find a solution, you can file a new issue. The better you describe the problem, the bigger the chance it'll be solved soon.
 
+***
+
+## Running the service and Usage
+**Watch out!** Before running and using the service you'll need to perform the previous step.
+
+Now, you are ready to run the service and suddenly execute the pipeline. Everytime you will need to execute the pipeline, please type the following command:
+```
+sudo service pipeline start
+```
+
+***
+
+## Uninstallation
+
+**Attention!** To uninstall this full pipeline service, you'll need to be **root** or a **sudoer user**. Consider that, uninstalling this service, will also destroy your cloned repository.
+
+If you have the need to remove this service, or you are having trouble with filesystem conflicts or anything else, please use our one-step uninstall script. Please move inside `/utils/pipeInstall/` and use the following command:
+```
+python3 pipeUninstall.py
+```
+The service will be removed from `/etc/init.d`, all files will be deleted and the tree directory structure will be purged. If you would like to reinstall it, you'll have to clone this repository again and repeat the process of installation.
+***
+
 ## Credits
 
 Credit goes to all the people, who contribute and provided this big cluster of docker image and resources:
 
 ***
+
+## To-Do-List
+
+- [X] Administrate Monitor/FastQC
+
+- [X] Create logger/log files
+
+- [X] Check the service status (def .py) within n-start of pipeline.service
+
+- [X] Resolve def readWorkdir()
+
+- [ ] Optimize logger stout lines
+
+- [ ] Give back to user command prompt
+
+- [ ] Automated start and restart of Compose Service
+
+- [ ] Pipeline loading script
+
+- [ ] Echo in pipeline.sh ("\n")
+
+- [ ] Line 11 in pipeline.sh
+
+- [ ] Installation directory Dockerfile programs and sources
+
+- [ ] Resolve Busco problem
+
+- [ ] Check pull & installation (before the exam)
+
+
 
 [this-docker]: https://hub.docker.com/u/mattallev
 

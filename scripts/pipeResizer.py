@@ -1,3 +1,5 @@
+import os
+os.chdir("/home/headless/Desktop/Biotech")
 
 def resizeFile(file_name_big, file_name_res, records=2800):
     filebig = open(file_name_big,"r")

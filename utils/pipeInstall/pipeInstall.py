@@ -41,7 +41,8 @@ pipefull = os.system("sudo cp "+workdir+"/utils/pipePackage/pipeFull.py /opt/pip
 print("Pipeline script successfully deployed.") if (int(pipefull) == 0) else print("Something went wrong when deploying the script file. If the problem persists please read the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md\n")
 pipext = os.system("sudo cp "+workdir+"/utils/pipePackage/pipeExtensions.py /opt/pipeline/lib/pipeExtensions.py")
 print("Pipeline libraries successfully deployed.") if (int(pipext) == 0) else print("Something went wrong when deploying the script file. If the problem persists please read the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md\n")
-
+pipestat = os.system("sudo cp "+workdir+"/utils/pipePackage/pipeStatus.py /opt/pipeline/lib/pipeStatus.py")
+print("Pipeline libraries successfully deployed.") if (int(pipestat) == 0) else print("Something went wrong when deploying the script file. If the problem persists please read the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md\n")
 
 pipeline_service = os.system("sudo cp "+workdir+"/utils/pipeInstall/pipeline /etc/init.d/pipeline")
 print("Pipeline service successfully copied.") if (int(pipeline_service) == 0) else print("Something went wrong when copying the service file. If the problem persists please read the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md\n")

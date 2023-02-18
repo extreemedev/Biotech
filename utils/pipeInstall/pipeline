@@ -8,8 +8,8 @@
 start() {
    # code to start app comes here 
    # example: daemon program_name &
-   #/usr/bin/python3 /opt/pipeline/bin/pipeFull.py&
-   /usr/bin/python3 /home/matt/app/biotech/utils/pipePackage/pipeFull.py&
+   /usr/bin/python3 /opt/pipeline/bin/pipeFull.py&
+   #/usr/bin/python3 /home/matt/app/biotech/utils/pipePackage/pipeFull.py&
 }
 
 stop() {
@@ -27,7 +27,7 @@ stop() {
 
 status() {
    # code to show app status comes here 
-   /usr/bin/python3 /home/matt/app/biotech/utils/pipePackage/pipeStatus.py&
+   /usr/bin/python3 /opt/pipeline/lib/pipeStatus.py&
 }
 
 case "$1" in 

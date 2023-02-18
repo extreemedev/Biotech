@@ -1,4 +1,5 @@
 import os
+os.chdir("/home/headless/Desktop/Biotech")
 
 print("\n")
 pathlist = ".Trash-0", "SSRresize", "Trimmomatic", "Spades", "Cdhitest", "Busco", "Hisat", "Transdecoder", "__pycache__"

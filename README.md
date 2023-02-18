@@ -24,13 +24,19 @@
 
 ***
 
-### Overview
+## Overview
 
-This project's goal is to create a user friendly ambient where anyone could use easily the pipeline. It consists in a Docker Compose structure where all software are in an isolated environment, the containers,§ in communication with the machine. Periodically (every 5 seconds) the machine will check the workdir if there are the files necessary to start the pipe, and then will proceed automatically to start the pipeline, using a Python script. In the workdir will then be added specific folders named after the softwares, that will contain the output files generated.    
+This project's goal is to create a user friendly environment where anyone can easily use the pipeline. It consists of a Docker Compose file which manages every softwares and microservices. Periodically (every 5 seconds) the host-system will check if the working directory contains the needed file to begin the pipeline, then will proceed automatically to start it, using a Python script. In the working directory then, the main program will add some specific folders named after the softwares, that will contain the output files generated.    
 
 ***
 
-### Docker compose structure
+## Dockerfile image `xubuntu-novnc-biotech:latest`
+
+Our Dockerfile image `monitor` is based on [accetto/ubuntu-vnc-novnc][this-github-novnc] published image. This new custom image includes a bunch of jre and python installations and moreover some custom enviroment settings, which may let the user be easy using this NoVNC system. It also includes a [FastQC][this-man-fastqc] interactive installation. Just for debug purpose, you can find these installation under the path: `/otp/bioprograms`, but it's highly recommended not to operate inside this directory.
+
+***
+
+## Docker compose structure
 
 This project repository contains resources for building various Docker images based on [Ubuntu][docker-ubuntu] with [Xfce][xfce] desktop environment and [VNC][tigervnc]/[noVNC][novnc] servers for headless use.
 
@@ -38,15 +44,12 @@ The resources for the individual images and their variations are stored in the s
 
 All images are part of a growing [image hierarchy][this-wiki-image-hierarchy].
 
-In the docker-compose.yml file the containers talk in bridge network, and each container has its unique purpose, with its unique image installed, as specified on the pipeline. 
-
-Each container is binded to a user's file system folder where all the executable files are, and where files are processed.
-
-There is one container, named "monitor", that has the GUI where the user can work into, that uses the image "xubuntu-no-vnc-biotech:latest". In this last container the user has root privileges to enable file actions.
+In the `docker-compose.yml` file containers speak onto a bridge network, and each of them has its unique purpose, with its unique image installed, as specified on the pipeline workflow. Every single container is bound to the same working directory, generally on `/scripts`, in order to generate the expected outputs for each process.
+The main container, named `monitor`, that runs the previous built Dockerfile image `xubuntu-novnc-biotech:latest`, has the GUI where the user can easily work into. Inside this last one, the user has root privileges to enable file actions. Moreover `monitor` is the only one which has access to localhost on port 26901, due to the bind with the internal container port 6901, that enables noVNC display on browser.
 
 ***
 
-### Docker containers and images 
+## Docker containers and images 
 
 Here's a list of the containers name we used associated to the docker images retrievable on https://hub.docker.com:
 
@@ -68,14 +71,11 @@ Here's a list of the containers name we used associated to the docker images ret
 
 -[trimmomatic][this-docker-trimmomatic]
 
-### Working Directory
+***
 
+## Working Directory
 
-
-
-
-
-
+***
 
 #### [xubuntu-vnc-novnc][this-github-xubuntu-vnc-novnc]
 
@@ -105,25 +105,64 @@ The images are streamlined and simplified versions of my other images [accetto/u
 
 ***
 
-### Python Package Utils
+## Python Package Utils
 
-#### [/.pipePackage][this-github-utils]
+### Can be found here: [/utils/][this-github-utils]
   
-Contains utilities that make building the images more convenient.
+Contains utilities that make building the images more convenient and helps out the user get a full clean installation and uninstallation, plus various settings:
 
-- `util-hdx.sh`  
+- `utils/pipeInstall/`  
+
+  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
+  
+
+- `utils/pipePackage/`  
+
+  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
+  
+
+- `utils/util-hdx.sh`  
 
   Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
   
   The comment lines at the top of included Dockerfiles are intended for this utility.
-0
+
   The utility displays the help if started with the `-h` or `--help` argument. It has been developed using my other utilities `utility-argbash-init.sh` and `utility-argbash.sh`, contained in the [accetto/argbash-docker][accetto-github-argbash-docker-utils] Git Hub repository, from which the [accetto/argbash-docker][accetto-docker-argbash-docker] Docker image is built.
 
-- `util-refresh-readme.sh`  
+- `utils/util-refresh-readme.sh`  
   
   This script can be used for updating the `version sticker` badges in README files. It is intended for local use before publishing the repository.
 
   The script does not include any help, because it takes only a single argument - the path where to start searching for files (default is `../docker`).
+
+***
+
+## Installation
+
+**Attention!** To install this full pipeline service, you'll need to be **root** or a **sudoer user**.
+
+Now, in order to install the entire service, move inside `/utils/pipeInstall/` and run the python installing script, with the following command:
+```
+python3 pipeInstall.py
+```
+All needed dependancies will be installed and this tree directory structure will be created on your operative system (starting from the root):
+```
+/opt/
+  |
+  ├─ pipeline/
+        |
+        ├─ bin/
+        |
+        ├─ etc/
+        |
+        ├─ lib/
+        |
+        ├─ log/
+        |
+        ├─ opt/
+        |
+        ├─ var/
+```
 
 ## Issues
 
@@ -170,6 +209,14 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [X] Resolve def readWorkdir()
 
+- [ ] pipePackage: move all desired pipe extensions inside /opt/pipeline/lib
+
+- [ ] FetchCluster: move it inside Biopython (embedded)
+
+- [ ] Dockerfile: move pipeScript in scripts into monitor /opt/
+
+- [ ] Line 30 pipeFull.py
+
 - [ ] Optimize logger stout lines
 
 - [ ] Give back to user command prompt
@@ -194,6 +241,7 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 [this-github-matt]: https://github.com/extreemedev/
 [this-github-adri]: https://github.com/adriIT/
+[this-github-novnc]: https://github.com/accetto/xubuntu-vnc-novnc/
 [this-changelog]: https://github.com/accetto/xubuntu-vnc-novnc/blob/master/CHANGELOG.md
 
 [this-wiki]: https://github.com/accetto/xubuntu-vnc-novnc/wiki

@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------- #
 
 import os, easygui
-
+os.chdir("/home/headless/Desktop/Biotech")
 
 def selectFile():
     path1 = easygui.fileopenbox("Select your first file","Pipe")
@@ -29,8 +29,8 @@ def selectFile():
 
 
 
-start = easygui.msgbox("Fully automated Pipeline for Assembly Annotation and Building.\n\nPlease press the 'Accept' button to select the starting file of this Pipeline.","Assembly Pipeline","Accept", "pipe_workflow.png")
+start = easygui.msgbox("Fully automated Pipeline for Assembly Annotation and Building.\n\nPlease press the 'Accept' button to select the starting file of this Pipeline.","Assembly Pipeline","Accept", "/opt/bioprograms/src/pipe-workflow.png")
 #print(start)
-if (start == "Accept" or start == "pipe_workflow.png"):
+if (start == "Accept" or start == "/opt/bioprograms/src/pipe-workflow.png"):
     selectFile()
     

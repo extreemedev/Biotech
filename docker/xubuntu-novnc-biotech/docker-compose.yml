@@ -10,6 +10,7 @@ services:
     volumes:
       - type: bind
         source: ../../scripts
+        #source: /opt/pipeline/var/run
         target: /home/headless/Desktop/Biotech
     stdin_open: true
     tty: true   

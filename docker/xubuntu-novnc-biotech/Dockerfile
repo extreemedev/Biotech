@@ -4,7 +4,9 @@ USER root
 
 COPY ./src/xfce-teal.jpg /usr/share/backgrounds/xfce/
 
-COPY ./hooks/fastQC.sh /home/headless/BioPrograms/
+COPY ./src/pipe-workflow.png /opt/bioprograms/src/
+
+COPY ./hooks/fastQC.sh /opt/bioprograms/
 
 #RUN /home/headless/BioPrograms/fastQC.sh
 
@@ -23,10 +25,10 @@ RUN pip3 install easygui
 
 ##FastQC
 RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip \
-    && unzip fastqc_v0.11.9.zip -d /home/headless/BioPrograms \
+    && unzip fastqc_v0.11.9.zip -d /opt/bioprograms/ \
     && rm -r fastqc_v0.11.9.zip \
-    && chmod 755 /home/headless/BioPrograms/FastQC/fastqc \
-    && sudo ln -s /home/headless/BioPrograms/FastQC/fastqc /usr/local/bin/fastqc \
+    && chmod 755 /opt/bioprograms/FastQC/fastqc \
+    && sudo ln -s /opt/bioprograms/FastQC/fastqc /usr/local/bin/fastqc \
     && sudo ln -s /home/headless/Desktop/fastqc.desktop /usr/share/applications/fastqc.desktop
     #importante questo sopra, serve a collegare nella page delle applicazioni, ed ha anche il potere di lanciare
 #

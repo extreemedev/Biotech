@@ -1,12 +1,12 @@
 # Multi-services docker Bioinformatics Pipeline for Assembly and Genomic Annotation
 
-## Project `/biopipeline-novnc` developed by [extreemedev][this-github-matt] & [adriIT][this-github-adri]
+## Project `biopipeline-novnc` developed by [extreemedev][this-github-matt] & [adriIT][this-github-adri]
 
 [Docker Hub][this-docker] - [Git Hub][this-github] - [Changelog][this-changelog] - [Wiki][this-wiki] - [Hierarchy][this-wiki-image-hierarchy]
 
 ***
 
-**Attention!** The repository [accetto/ubuntu-vnc-novnc][this-github-novnc] is **retired** and **archived**. It will not be developed any further and the related images on Docker Hub will not be rebuilt any more. They will phase out and they will be deleted after becoming too old.
+**Attention!** The repository [accetto/xubuntu-vnc-novnc][this-github-novnc] is **retired** and **archived**. It will not be developed any further and the related images on Docker Hub will not be rebuilt any more. They will phase out and they will be deleted after becoming too old.
 
 
 ![badge-github-release][badge-github-release]
@@ -30,7 +30,9 @@ This project's goal is to create a user friendly environment where anyone can ea
 
 ## Dockerfile image `xubuntu-novnc-biotech:latest`
 
-Our Dockerfile image `monitor` is based on [accetto/ubuntu-vnc-novnc][this-github-novnc] published image. This new custom image includes a bunch of jre and python installations and moreover some custom enviroment settings, which may let the user be easy using this NoVNC system. It also includes a [FastQC][this-man-fastqc] interactive installation. Just for debug purpose, you can find these installations under the path: `/otp/bioprograms`, but it's highly recommended not to operate inside this directory.
+![image](https://drive.google.com/uc?export=view&id=1XoLgU-GS7JlHbnqV2O3f1va3YV1BvC5l)
+
+Our Dockerfile image `monitor` is based on [accetto/xubuntu-vnc-novnc][this-github-novnc] published image. This new custom image includes a bunch of jre and python installations and moreover some custom enviroment settings, which may let the user be easy using this NoVNC system. It also includes a [FastQC][this-man-fastqc] interactive installation. Just for debug purpose, you can find these installations under the path: `/otp/bioprograms`, but it's highly recommended not to operate inside this directory.
 
 ***
 
@@ -50,7 +52,7 @@ The main container, `monitor` service runs a desktop environment and exposes por
 
 ## Docker containers and images
 
-![image](https://drive.google.com/uc?export=view&id=1KmPEplUZoq059Buw_JzN8cTQ-Vii7ZCy)
+![image](https://drive.google.com/uc?export=view&id=17MacKqxVazciVVYCdoo4jwS-dAXofGDo)
 
 Here's a list of the container's names used in `docker-compose.yml`, associated to the docker images retrievable on https://hub.docker.com. This list is provided in alphabetical order:
 
@@ -78,33 +80,9 @@ Here's a list of the container's names used in `docker-compose.yml`, associated 
 
 ## Working Directory
 
-***
-
-#### [xubuntu-vnc-novnc][this-github-xubuntu-vnc-novnc]
-
-Contains resources for building [accetto/xubuntu-vnc-novnc][this-docker-xubuntu-vnc-novnc] base images.
-
-The images are streamlined and simplified versions of my other images [accetto/ubuntu-vnc-xfce][accetto-docker-ubuntu-vnc-xfce].
-
-Several variations are available, including the one supporting overriding both the container user and the user group.
-
 These base images already include commonly used utilities **ping**, **wget**, **zip**, **unzip**, **sudo**, [curl][curl], [git][git] and also the current version of [jq][jq] JSON processor.
-
 Additional components and applications can be easily added by the user because **sudo** is supported.
 
-
-
-#### [xubuntu-vnc-novnc-chromium][this-github-xubuntu-vnc-novnc-chromium]
-  
-Contains resources for building [accetto/xubuntu-vnc-novnc-chromium][this-docker-xubuntu-vnc-novnc-chromium] images with the open-source [Chromium][chromium] web browser.
-
-#### [xubuntu-vnc-novnc-firefox][this-github-xubuntu-vnc-novnc-firefox]
-  
-Contains resources for building [accetto/xubuntu-vnc-novnc-firefox][this-docker-xubuntu-vnc-novnc-firefox] images with the current [Firefox Quantum][firefox] web browser.
-
-Several variations are available, including the one supporting easy pre-configuration and copying of personal Firefox user preferences.
-
-The images are streamlined and simplified versions of my other images [accetto/ubuntu-vnc-xfce-firefox-plus][accetto-docker-ubuntu-vnc-xfce-firefox-plus] and [accetto/ubuntu-vnc-xfce-firefox-default][accetto-docker-ubuntu-vnc-xfce-firefox-default].
 
 ***
 
@@ -114,28 +92,24 @@ The images are streamlined and simplified versions of my other images [accetto/u
   
 Contains utilities that make building the images more convenient and helps out the user get a full clean installation and uninstallation, plus various settings:
 
-- `utils/pipeInstall/`  
+- `utils/pipeManager/`  
 
-  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
+  Includes every file needed for the first installation and the initial setup. **It is severerly recommended to not touch or modify any of these files.**
   
 
 - `utils/pipePackage/`  
 
-  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
+  Includes every file or extension needed for the pipeline to work properly. **It is severerly recommended to not touch or modify any of these files.**
   
 
 - `utils/util-hdx.sh`  
 
-  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.
-  
-  The comment lines at the top of included Dockerfiles are intended for this utility.
-
+  Displays the file head and executes the chosen line, removing the first occurrence of '#' and trimming the line from left first. Providing the line number argument skips the interaction and executes the given line directly.The comment lines at the top of included Dockerfiles are intended for this utility.
   The utility displays the help if started with the `-h` or `--help` argument. It has been developed using my other utilities `utility-argbash-init.sh` and `utility-argbash.sh`, contained in the [accetto/argbash-docker][accetto-github-argbash-docker-utils] Git Hub repository, from which the [accetto/argbash-docker][accetto-docker-argbash-docker] Docker image is built.
 
 - `utils/util-refresh-readme.sh`  
-  
-  This script can be used for updating the `version sticker` badges in README files. It is intended for local use before publishing the repository.
 
+  This script can be used for updating the `version sticker` badges in README files. It is intended for local use before publishing the repository.
   The script does not include any help, because it takes only a single argument - the path where to start searching for files (default is `../docker`).
 
 ***
@@ -144,7 +118,7 @@ Contains utilities that make building the images more convenient and helps out t
 
 **Attention!** To install this full pipeline service, you'll need to be **root** or a **sudoer user**.
 
-Now, in order to install the entire service, move inside `/utils/pipeInstall/` and run the python installing script, with the following command:
+Now, in order to install the entire service, move inside `/utils/pipeManager/` and run the python installing script, with the following command:
 ```
 python3 pipeInstall.py
 ```
@@ -189,7 +163,7 @@ sudo service pipeline start
 
 **Attention!** To uninstall this full pipeline service, you'll need to be **root** or a **sudoer user**. Consider that, uninstalling this service, will also destroy your cloned repository.
 
-If you have the need to remove this service, or you are having trouble with filesystem conflicts or anything else, please use our one-step uninstall script. Please move inside `/utils/pipeInstall/` and use the following command:
+If you have the need to remove this service, or you are having trouble with filesystem conflicts or anything else, please use our one-step uninstall script. Please move inside `/utils/pipeManager/` and use the following command:
 ```
 python3 pipeUninstall.py
 ```
@@ -250,7 +224,7 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 [this-wiki]: https://github.com/accetto/xubuntu-vnc-novnc/wiki
 [this-wiki-image-hierarchy]: https://github.com/accetto/xubuntu-vnc-novnc/wiki/Image-hierarchy
 [this-issues]: https://github.com/accetto/xubuntu-vnc-novnc/issues
-[this-github-utils]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/utils/
+[this-github-utils]: https://github.com/extreemedev/Biotech/tree/master/utils
 [this-github-xubuntu-vnc-novnc]: https://github.com/accetto/xubuntu-vnc-novnc/tree/master/docker/xubuntu-vnc-novnc/
 
 

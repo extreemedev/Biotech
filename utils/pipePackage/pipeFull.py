@@ -39,7 +39,6 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
     dir_hisat = "Hisat"
     dir_corset = "Corset"
     dir_transdecoder = "Transdecoder"
-    client = docker.from_env()
     createDir(dir_scripts+dir_pipe)
     createDir(dir_scripts+dir_pipe+dir_fastqc)
     createDirs((dir_scripts+dir_pipe+dir_trimmomatic, dir_scripts+dir_pipe+dir_trimmomatic_trim, dir_scripts+dir_pipe+dir_trimmomatic_unpaired))
@@ -49,11 +48,13 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
     createDir(dir_scripts+dir_pipe+dir_corset)
     os.system("sudo chmod -R 777 "+dir_scripts+dir_pipe)
 
-   
+
+    client = docker.from_env()
+
+
     print("init: Monitor")
     monitor = client.containers.get("monitor")
     monitor_msg = monitor.exec_run("echo Hello World!", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir=None, demux=False)
-    #print(monitor_msg)
     if int(monitor_msg.exit_code) == 0:
         print("init: Monitor: done")
         logger.info("Monitor: done\n\n"+str(monitor_msg.output))
@@ -61,14 +62,10 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
         print("init: Monitor: abort\n\n",monitor_msg.output)
         logger.warning("Monitor: abort\n\n"+str(monitor_msg.output))
 
-    
 
     with alive_bar(11) as bar:
 
-
-        # ---------------------------------------------------------------------------- #
-        #                                    FastQC                                    #
-        # ---------------------------------------------------------------------------- #
+    # ---------------------------------- FastQC ---------------------------------- #
         
         print("FastQC")
         fastqc = client.containers.get("fastqc")
@@ -81,11 +78,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("FastQC: abort\n\n",fastqc_msg.output)
             logger.warning("FastQC: abort\n\n"+str(fastqc_msg.output))
         
-
-
-        # ---------------------------------------------------------------------------- #
-        #                                  Trimmomatic                                 #
-        # ---------------------------------------------------------------------------- #
+    # -------------------------------- Trimmomatic ------------------------------- #
 
         print("Trimmomatic")
         trimmomatic = client.containers.get('trimmomatic')
@@ -103,11 +96,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("Trimmomatic: abort\n\n",trimmomatic_msg.output)
             logger.warning("Trimmomatic: abort\n\n"+str(trimmomatic_msg.output))
 
-
-
-        # ---------------------------------------------------------------------------- #
-        #                                 SPAdes-3.14.1                                #
-        # ---------------------------------------------------------------------------- #
+    # ------------------------------- SPAdes-3.14.1 ------------------------------ #
 
         print("SPAdes-3.14.1")
         spades = client.containers.get("spades")
@@ -120,11 +109,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("SPAdes-3.14.1: abort\n\n",spades_msg.output)
             logger.warning("SPAdes-3.14.1: abort\n\n"+str(spades_msg.output))
 
-
-
-        # ---------------------------------------------------------------------------- #
-        #                                  CD-HIT-est                                  #
-        # ---------------------------------------------------------------------------- #
+    # -------------------------------- CD-HIT-est -------------------------------- #
 
         print("CD-HIT-est-4.8.1")
         cdhit = client.containers.get('cdhit')
@@ -138,11 +123,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("CD-HIT-est-4.8.1: abort\n\n",cdhit_msg.output)
             logger.warning("CD-HIT-est-4.8.1: abort\n\n"+str(cdhit_msg.output))
 
-
-
-        # ---------------------------------------------------------------------------- #
-        #                                     BUSCO                                    #
-        # ---------------------------------------------------------------------------- #
+    # ----------------------------------- BUSCO ---------------------------------- #
 
         print("BUSCO")
         busco = client.containers.get("busco")
@@ -157,11 +138,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("BUSCO: abort\n\n",busco_msg.output)
             logger.warning("BUSCO: abort\n\n"+str(busco_msg.output))
 
-
-
-        # ---------------------------------------------------------------------------- #
-        #                                    HISAT2                                    #
-        # ---------------------------------------------------------------------------- #
+    # ---------------------------------- HISAT2 ---------------------------------- #
 
         print("HISAT2 - Building indexes")
         hisat = client.containers.get("hisat")   
@@ -174,7 +151,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("HISAT2 - Building indexes: abort\n\n",hisat_msg.output)
             logger.warning("HISAT2 - Building indexes: abort\n\n"+str(hisat_msg.output))
         
-
+    # ---------------------------------- HISAT2 ---------------------------------- #
 
         print("HISAT2 - Building SAM file")
         hisat_comm="hisat2 -p "+threads+" --dta -q -x /data/"+dir_pipe+dir_hisat+"/"+pipename+"_index \
@@ -192,7 +169,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("HISAT2 - Building SAM file: abort\n\n",hisat_msg.output)
             logger.warning("HISAT2 - Building SAM file: abort\n\n"+str(hisat_msg.output))
         
-
+    # ---------------------------------- HISAT2 ---------------------------------- #
         
         print("Samtools - Converting SAM to BAM")
         hisat_msg = hisat.exec_run("samtools sort -@ "+ threads +" -o /data/"+ dir_pipe+pipename +".bam /data/"+ dir_pipe+pipename +".sam", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/"+dir_pipe+dir_hisat, demux=False)
@@ -203,12 +180,8 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
         else:
             print("Samtools - Converting SAM to BAM: abort\n\n",hisat_msg.output)
             logger.warning("Samtools - Converting SAM to BAM: abort\n\n"+str(hisat_msg.output))
-        
 
-
-        # ---------------------------------------------------------------------------- #
-        #                                    Corset                                    #
-        # ---------------------------------------------------------------------------- #
+    # ---------------------------------- Corset ---------------------------------- #
 
         print("Corset")
         corset = client.containers.get("corset")
@@ -221,11 +194,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("Corset: abort\n\n",corset_msg.output)
             logger.warning("Corset: abort\n\n"+str(corset_msg.output))
     
-
-
-        # ---------------------------------------------------------------------------- #
-        #                                   Biopython                                  #
-        # ---------------------------------------------------------------------------- #
+    # --------------------------------- BioPython -------------------------------- #
 
         print("Fetch Cluster")
         biopython = client.containers.get("biopython")
@@ -238,13 +207,10 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("Fetch Cluster: abort\n\n",biopython_msg.output)
             logger.warning("Fetch Cluster: abort\n\n"+str(biopython_msg.output))
 
+        # Use case
         #./fetchClusterSeqs.py -i Cdhitest/cd-hit-transcripts.fasta -t counts.txt -o contigs_of_interest.fasta -c clusters.txt
 
-
-
-        # ---------------------------------------------------------------------------- #
-        #                                 Transdecoder                                 #
-        # ---------------------------------------------------------------------------- #
+    # ------------------------------- Transdecoder ------------------------------- #
 
         print("Transdecoder")
         transdecoder = client.containers.get('transdecoder')
@@ -259,28 +225,12 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             logger.warning("Transdecoder: abort\n\n"+str(transdecoder_msg.output))
         
 
-    
     print("\n\n# ---------------------------------------------------------------------------- #\n"+ \
               "#                               Pipeline Finished                              #\n"+ \
               "# ---------------------------------------------------------------------------- #\n")
 
-    #remove = os.system("rm -rf ../utils/pipePackage/__pycache__")
-    """
-    print("\n\n# ---------------------------------------------------------------------------- #\n"+ \
-              "#                         Pipeline Activated (Waiting...)                      #\n"+ \
-              "# ---------------------------------------------------------------------------- #\n"+ \
-              "#                                                                              #\n"+ \
-              "#  Pipeline Status: Waiting user file...                                       #\n"+ \
-              "#                                                                              #\n"+ \
-              "#  Process Id: "+str(pid)+"                                                           #\n"+ \
-              "#                                                                              #\n"+ \
-              "# ---------------------------------------------------------------------------- #\n") \
-    """
 
-
-# ---------------------------------------------------------------------------- #
-#                                   PID e DIR                                  #
-# ---------------------------------------------------------------------------- #
+# --------------------------------- PID & DIR -------------------------------- #
 
 if checkStatus():
     print("\nCannot start the same process. Already one existing.\n")
@@ -292,9 +242,7 @@ f.write(str(pid))
 f.close()
 os.chdir(str(readWorkdir())+"scripts/")
 
-# ---------------------------------------------------------------------------- #
-#                                 SERVICE LOOP                                 #
-# ---------------------------------------------------------------------------- #
+# ------------------------------- SERVICE LOOP ------------------------------- #
 
 while True:  
     if os.path.exists(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt"):

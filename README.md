@@ -6,9 +6,8 @@
 
 ***
 
-**Attention!** The repository is **retired** and **archived**. It will not be developed any further and the related images on Docker Hub will not be rebuilt any more. They will phase out and they will be deleted after becoming too old. Please use the newer **third generation** (G3) repository [accetto/ubuntu-vnc-xfce-g3][accetto-ubuntu-vnc-xfce-g3] and the related images on Docker Hub instead. If you still need images based on `Ubuntu 18.04 LTS`, then feel free using the repository for building the images locally.
+**Attention!** The repository [accetto/ubuntu-vnc-novnc][this-github-novnc] is **retired** and **archived**. It will not be developed any further and the related images on Docker Hub will not be rebuilt any more. They will phase out and they will be deleted after becoming too old.
 
-***
 
 ![badge-github-release][badge-github-release]
 ![badge-github-release-date][badge-github-release-date]
@@ -20,7 +19,6 @@
 ![badge-github-commits][badge-github-commits]
 ![badge-github-last-commit][badge-github-last-commit]
 
-**Tip** If you want newer images based on [Ubuntu 20.04 LTS][docker-ubuntu] with the latest [TigerVNC][tigervnc-releases]/[noVNC][novnc-releases] versions, please check the **third generation** (G3) [accetto/ubuntu-vnc-xfce-g3][accetto-docker-ubuntu-vnc-xfce-g3], [accetto/ubuntu-vnc-xfce-chromium-g3][accetto-docker-ubuntu-vnc-xfce-chromium-g3] or [accetto/ubuntu-vnc-xfce-firefox-g3][accetto-docker-ubuntu-vnc-xfce-firefox-g3].
 
 ***
 
@@ -37,6 +35,8 @@ Our Dockerfile image `monitor` is based on [accetto/ubuntu-vnc-novnc][this-githu
 ***
 
 ## Docker compose structure
+
+![image](https://drive.google.com/uc?export=view&id=1oNtKLn59Hs02c0ZFXlcRIXqALaV3huuS)
 
 This project repository contains resources for building various Docker images based on [Ubuntu][docker-ubuntu] with [Xfce][xfce] desktop environment and [VNC][tigervnc]/[noVNC][novnc] servers for headless use.
 

@@ -48,7 +48,9 @@ The main container, `monitor` service runs a desktop environment and exposes por
 
 ***
 
-## Docker containers and images 
+## Docker containers and images
+
+![image](https://drive.google.com/uc?export=view&id=1KmPEplUZoq059Buw_JzN8cTQ-Vii7ZCy)
 
 Here's a list of the container's names used in `docker-compose.yml`, associated to the docker images retrievable on https://hub.docker.com. This list is provided in alphabetical order:
 

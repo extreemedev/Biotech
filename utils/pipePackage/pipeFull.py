@@ -38,7 +38,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
     dir_busco = "Busco"
     dir_hisat = "Hisat"
     dir_corset = "Corset"
-    dir_transdecoder = "Transdecoder"
+    dir_transdecoder = "TransDecoder"
     createDir(dir_scripts+dir_pipe)
     createDir(dir_scripts+dir_pipe+dir_fastqc)
     createDirs((dir_scripts+dir_pipe+dir_trimmomatic, dir_scripts+dir_pipe+dir_trimmomatic_trim, dir_scripts+dir_pipe+dir_trimmomatic_unpaired))
@@ -210,19 +210,19 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
         # Use case
         #./fetchClusterSeqs.py -i Cdhitest/cd-hit-transcripts.fasta -t counts.txt -o contigs_of_interest.fasta -c clusters.txt
 
-    # ------------------------------- Transdecoder ------------------------------- #
+    # ------------------------------- TransDecoder ------------------------------- #
 
-        print("Transdecoder")
+        print("TransDecoder")
         transdecoder = client.containers.get('transdecoder')
         transdecoder_msg=transdecoder.exec_run("TransDecoder.LongOrfs -t "+pipename+".fasta", stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/"+dir_pipe, demux=False)
         if int(transdecoder_msg.exit_code) == 0:
             os.system("mv "+dir_scripts+dir_pipe+"*.transdecoder_dir "+dir_scripts+dir_pipe+dir_transdecoder)
-            print("Transdecoder: done")
-            logger.info("Transdecoder: done")
+            print("TransDecoder: done")
+            logger.info("TransDecoder: done")
             bar()    
         else:
-            print("Transdecoder: abort\n\n",transdecoder_msg.output)
-            logger.warning("Transdecoder: abort\n\n"+str(transdecoder_msg.output))
+            print("TransDecoder: abort\n\n",transdecoder_msg.output)
+            logger.warning("TransDecoder: abort\n\n"+str(transdecoder_msg.output))
         
 
     print("\n\n# ---------------------------------------------------------------------------- #\n"+ \

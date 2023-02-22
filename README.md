@@ -46,7 +46,7 @@ All images are part of a growing [image hierarchy][this-wiki-image-hierarchy].
 
 This `docker-compose.yml` file defines multiple services for different bioinformatics tools, each running on its own container. Some of these services have bind mounts, which allow them to access files and scripts on the host system. The containers are set to automatically restart and they are all part of the same network called bionet.
 Every single container is bound to the same working directory, generally on `/scripts`, in order to generate the expected outputs for each process.
-The main container, `monitor` service runs a desktop environment and exposes ports 25901 and 26901 for remote access.It runs the previous built Dockerfile image `xubuntu-novnc-biotech:latest`,and has a Graphic User Interface where the user can easily work into. Inside this last one, the user has root privileges to enable file actions.
+The main container, `monitor` service runs a desktop environment and exposes ports 25901 and 26901 for remote access. It runs the previous built Dockerfile image `xubuntu-novnc-biotech:latest`, and it has a Graphic User Interface where the user can easily work into. Inside this last one, the user has root privileges to enable file actions.
 
 ***
 
@@ -149,10 +149,34 @@ If you do not find a solution, you can file a new issue. The better you describe
 
 ***
 
+## noVNC Web Access
+**Watch out!** In order to access this web page, you have to host the service, following the next step:
+
+Please, move into this directory `/docker/xubuntu-novnc-biotech/` and run this command in the terminal:
+```
+docker compose up --build -d
+```
+or you can simply just do it, **(Only on VS Code)** by right-clicking on `docker-compose.yml` and then clicking `Compose Up` thanks to Visual Studio Code Docker Extension
+
+
+After running `compose up` on the `docker-compose.yml` file, we are ready to access the web page linked [http://localhost:26901/vnc.html?password=headless][novnc-web] and connect remotely and locally to the service running on the host machine in question.
+
+![](https://drive.google.com/uc?export=view&id=1LafYdoqD8g14eHKIaf9c599HwPmBvwtE)
+
+**Remind**: once you execute this command, this docker-compose, will automatically restart every single container if some problems are experienced. Moreover this compose service will be running at every system boot/startup/restart. To avoid this you can simply run this command in the terminal:
+```
+docker compose down
+```
+
+***
+
 ## Running the service and Usage
+
 **Watch out!** Before running and using the service you'll need to perform the previous step.
 
-Now, you are ready to run the service and suddenly execute the pipeline. Everytime you will need to execute the pipeline, please type the following command:
+
+
+Now, you are ready to run the service and suddenly execute the pipeline. Everytime you will need to execute the pipeline, open the terminal and please type the following command:
 ```
 sudo service pipeline start
 ```
@@ -185,6 +209,8 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 - [X] Check the service status (def .py) within n-start of pipeline.service
 
 - [X] Resolve def readWorkdir()
+
+- [ ] Remove console print from pipeChooser.py
 
 - [ ] pipePackage: move all desired pipe extensions inside /opt/pipeline/lib
 
@@ -299,3 +325,4 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 [github-fetchcluster]: https://github.com/Adamtaranto/Corset-tools/blob/master/fetchClusterSeqs.py
 [github-adamtaranto]: https://github.com/Adamtaranto
+[novnc-web]: http://localhost:26901/vnc.html?password=headless

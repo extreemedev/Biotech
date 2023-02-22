@@ -96,32 +96,32 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
             print("Trimmomatic: abort\n\n",trimmomatic_msg.output)
             logger.warning("Trimmomatic: abort\n\n"+str(trimmomatic_msg.output))
 
-    # ------------------------------- SPAdes-3.14.1 ------------------------------ #
+    # ---------------------------------- SPAdes ---------------------------------- #
 
-        print("SPAdes-3.14.1")
+        print("SPAdes")
         spades = client.containers.get("spades")
-        spades_msg = spades.exec_run("python /SPAdes-3.15.4-Linux/bin/rnaspades.py -1 "+ dir_pipe+dir_trimmomatic_trim +"/"+ file1 +".trim.fastq.gz -2 "+ dir_pipe+dir_trimmomatic_trim +"/"+ file2 +".trim.fastq.gz -o "+dir_pipe+dir_spades , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/", demux=False)
+        spades_msg = spades.exec_run("rnaspades.py -1 "+ dir_pipe+dir_trimmomatic_trim +"/"+ file1 +".trim.fastq.gz -2 "+ dir_pipe+dir_trimmomatic_trim +"/"+ file2 +".trim.fastq.gz -o "+dir_pipe+dir_spades , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/", demux=False)
         if int(spades_msg.exit_code) == 0:
-            print("SPAdes-3.14.1: done")
-            logger.info("SPAdes-3.14.1: done\n\n"+str(spades_msg.output))
+            print("SPAdes: done")
+            logger.info("SPAdes: done\n\n"+str(spades_msg.output))
             bar() 
         else:
-            print("SPAdes-3.14.1: abort\n\n",spades_msg.output)
-            logger.warning("SPAdes-3.14.1: abort\n\n"+str(spades_msg.output))
+            print("SPAdes: abort\n\n",spades_msg.output)
+            logger.warning("SPAdes: abort\n\n"+str(spades_msg.output))
 
     # -------------------------------- CD-HIT-est -------------------------------- #
 
-        print("CD-HIT-est-4.8.1")
+        print("CD-HIT-est")
         cdhit = client.containers.get('cdhit')
         cdhit_comm = "cd-hit-est -i "+ dir_pipe+dir_spades +"/transcripts.fasta -o "+ dir_pipe+dir_cdhit +"/cd-hit-transcripts.fasta -c 0.9 -d 0 -M 0 -T " + threads
         cdhit_msg=cdhit.exec_run(cdhit_comm, stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/in/", demux=False)
         if int(cdhit_msg.exit_code) == 0:
-            print("CD-HIT-est-4.8.1: done")
-            logger.info("CD-HIT-est-4.8.1: done\n\n"+str(cdhit_msg.output))
+            print("CD-HIT-est: done")
+            logger.info("CD-HIT-est: done\n\n"+str(cdhit_msg.output))
             bar() 
         else:
-            print("CD-HIT-est-4.8.1: abort\n\n",cdhit_msg.output)
-            logger.warning("CD-HIT-est-4.8.1: abort\n\n"+str(cdhit_msg.output))
+            print("CD-HIT-est: abort\n\n",cdhit_msg.output)
+            logger.warning("CD-HIT-est: abort\n\n"+str(cdhit_msg.output))
 
     # ----------------------------------- BUSCO ---------------------------------- #
 

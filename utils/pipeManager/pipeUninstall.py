@@ -17,4 +17,5 @@ pipeline_service = os.system("sudo rm /etc/init.d/pipeline")
 
 # --------------------------------- SYSTEMCTL -------------------------------- #
 
-pipeline_sysctl = os.system("sudo rm /etc/systemd/system/pipeline.service")
+#if il file esiste, allora rimuovilo
+pipeline_sysctl = os.system("sudo rm /etc/systemd/system/pipeline.service") #Mettere in console la disinstallazione andata a buon fine

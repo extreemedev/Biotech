@@ -16,7 +16,7 @@ if workdir[-1] != "/":
 for i in ("/opt/pipeline","/opt/pipeline/bin","/opt/pipeline/etc","/opt/pipeline/var","/opt/pipeline/log","/opt/pipeline/opt","/opt/pipeline/lib"):
      if not os.path.isdir(i):
           mkdir = os.system("sudo mkdir "+i)
-          print("Directory successfully created.\n") if (int(mkdir) == 0) else print("Something went wrong when creating the directory. If the problem persists please read the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md\n")
+          print("Directory "+i+" successfully created.") if (int(mkdir) == 0) else print("Something went wrong when creating the directory "+i+" . If the problem persists please read the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md\n")
 mod = os.system("sudo chmod -R 777 /opt/pipeline/")
 print("Workdir tree successfully granted.") if (int(mod) == 0) else print("Something went wrong when granting permission. If the problem persists please read the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md\n")
 

@@ -8,6 +8,8 @@ COPY ./src/pipe-workflow.png /opt/bioprograms/src/
 
 COPY ./hooks/fastQC.sh /opt/bioprograms/
 
+COPY ./hooks/pipeChooser.py /opt/bioprograms/
+
 #RUN /home/headless/BioPrograms/fastQC.sh
 
 #Various sets

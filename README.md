@@ -34,7 +34,7 @@ This project's goal is to create a user friendly environment where anyone can ea
 
 ![image](https://drive.google.com/uc?export=view&id=1XoLgU-GS7JlHbnqV2O3f1va3YV1BvC5l)
 
-Our Dockerfile image `monitor` is based on [accetto/xubuntu-vnc-novnc][this-github-novnc] published image. This new custom image includes a bunch of jre and python installations and moreover some custom enviroment settings, which may let the user be easy using this NoVNC system. It also includes a [FastQC][this-man-fastqc] interactive installation. Just for debug purpose, you can find these installations under the path: `/otp/bioprograms`, but it's highly recommended not to operate inside this directory.
+Our Dockerfile image `monitor` is based on [accetto/xubuntu-vnc-novnc][this-github-novnc] published image. This new custom image includes a bunch of jre and python installations and moreover some custom enviroment settings, which may let the user be easy using this noVNC system. It also includes a [FastQC][this-man-fastqc] interactive installation. Just for debug purpose, you can find these installations under the path: `/otp/bioprograms`, but it's highly recommended not to operate inside this directory.
 
 ***
 
@@ -218,7 +218,15 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [X] Dockerfile: move pipeScript in scripts into monitor /opt/
 
+- [X] Line 11 in pipeline.sh
+
+- [X] Installation directory Dockerfile programs and sources
+
 - [ ] Dockerfile: mettere gli eseguibili sul desktop di novnc. Basta caricare in hooks, i file .desktop, copiarli nel dockerfile e dare i permessi di esecuzione
+
+- [ ] Automated start and restart of Compose Service
+
+- [ ] Block git forks and master unhautorized update
 
 - [ ] FetchCluster: move it inside Biopython (embedded)
 
@@ -228,15 +236,9 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [ ] Give back to user command prompt
 
-- [ ] Automated start and restart of Compose Service
-
 - [ ] Pipeline loading script
 
 - [ ] Echo in pipeline.sh ("\n")
-
-- [ ] Line 11 in pipeline.sh
-
-- [ ] Installation directory Dockerfile programs and sources
 
 - [ ] Resolve Busco problem
 

@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
     
 services:
 
@@ -19,7 +19,6 @@ services:
       - "26901:6901"
     restart: always
 
-
   biopython:
     container_name: biopython
     image: biocontainers/biopython:v1.73dfsg-1-deb-py3_cv1
@@ -30,7 +29,6 @@ services:
         target: /data
     stdin_open: true
     tty: true
-
 
   busco:
     container_name: busco
@@ -65,13 +63,6 @@ services:
     stdin_open: true
     tty: true
 
-  #detonate:
-  #  container_name: detonate
-  #  image: nanozoo/detonate
-  #  restart: always
-  #  stdin_open: true
-  #  tty: true
-
   fastqc:
     container_name: fastqc
     image: staphb/fastqc:latest
@@ -94,31 +85,6 @@ services:
     stdin_open: true
     tty: true
 
-  #python:
-  #  container_name: python
-  #  image: python:3.9-alpine
-  #  restart: always
-  #  stdin_open: true
-  #  tty: true
-
-  #salmon:
-  #  container_name: salmon
-  #  image: combinelab/salmon 
-  #  restart: always
-  #  volumes:
-  #    - type: bind
-  #      source: ../../scripts
-  #      target: /data
-  #  stdin_open: true
-  #  tty: true
-
-  #soapdenovo:
-  #  container_name: soapdenovo
-  #  image: pegi3s/soapdenovo2 
-  #  restart: always
-  #  stdin_open: true
-  #  tty: true
-
   spades:
     container_name: spades
     image: staphb/spades:latest
@@ -130,13 +96,6 @@ services:
     stdin_open: true
     tty: true
 
-  #transabyss:
-  #  container_name: transabyss
-  #  image: ss93/transabyss-2.0.1
-  #  restart: always
-  #  stdin_open: true
-  #  tty: true
- 
   transdecoder:
     container_name: transdecoder
     image: biocrusoe/transdecoder
@@ -159,15 +118,6 @@ services:
     stdin_open: true
     tty: true
     
-
-  #trinity:
-  #  container_name: trinityrnaseq
-  #  image: trinityrnaseq/trinityrnaseq
-  #  restart: always
-  #  stdin_open: true
-  #  tty: true
-  
-  
 networks:
   bionet:
     driver: bridge

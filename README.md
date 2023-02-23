@@ -212,13 +212,15 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [X] Resolve def readWorkdir()
 
-- [ ] Remove console print from pipeChooser.py
+- [X] Remove console print from pipeChooser.py
 
-- [ ] pipePackage: move all desired pipe extensions inside /opt/pipeline/lib
+- [X] pipePackage: move all desired pipe extensions inside /opt/pipeline/lib
+
+- [X] Dockerfile: move pipeScript in scripts into monitor /opt/
+
+- [ ] Dockerfile: mettere gli eseguibili sul desktop di novnc. Basta caricare in hooks, i file .desktop, copiarli nel dockerfile e dare i permessi di esecuzione
 
 - [ ] FetchCluster: move it inside Biopython (embedded)
-
-- [ ] Dockerfile: move pipeScript in scripts into monitor /opt/
 
 - [ ] Line 30 pipeFull.py
 

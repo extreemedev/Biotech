@@ -27,7 +27,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
               "#                                Pipeline Started                              #\n"+ \
               "# ---------------------------------------------------------------------------- #\n")
 
-    dir_scripts = readWorkdir()+"scripts/"      # CAMBIARE IN FAVORE DI OPT PIPELINE
+    dir_scripts = readWorkdir()+"scripts/"
     dir_pipe = pipename+"/"
     dir_fastqc = "FastQC"
     dir_trimmomatic = "Trimmomatic"

@@ -15,9 +15,9 @@ def selectFile():
             name = str()
             while (str(name) == "") or (str(name) == "None"):
                 name = easygui.enterbox("Please insert a name:", "Name selection", os.path.basename(path1).rstrip(".gz").rstrip(".fastq").rstrip(".fasta").rstrip("_1"))
-                print(name)
+                #print(name)
             check = easygui.ynbox("Are you sure you want to proceed?", "Final check")
-            print(check)
+            #print(check)
             if (str(check) == "True"):
                 file = open(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt","w+")
                 file.write(str(name)+"\n")

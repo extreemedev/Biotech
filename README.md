@@ -165,7 +165,7 @@ After running `compose up` on the `docker-compose.yml` file, we are ready to acc
 
 ![](https://drive.google.com/uc?export=view&id=1LafYdoqD8g14eHKIaf9c599HwPmBvwtE)
 
-**Remind**: once you execute this command, this docker-compose, will automatically restart every single container if some problems are experienced. Moreover this compose service will be running at every system boot/startup/restart. To avoid this you can simply run this command in the terminal:
+**Reminder**: once you execute the previous command, this docker-compose, will automatically restart every single container if some problems are experienced. Moreover this compose service will be running at every system boot/startup/restart. To avoid this you can simply run this command in the terminal:
 ```
 docker compose down
 ```
@@ -222,7 +222,9 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [X] Installation directory Dockerfile programs and sources
 
-- [ ] Dockerfile: mettere gli eseguibili sul desktop di novnc. Basta caricare in hooks, i file .desktop, copiarli nel dockerfile e dare i permessi di esecuzione
+- [X] Dockerfile: mettere gli eseguibili sul desktop di novnc. Basta caricare in hooks, i file .desktop, copiarli nel dockerfile e dare i permessi di esecuzione
+
+- [ ] Dockerfile: ultimare e pushare su DockerHub
 
 - [ ] Automated start and restart of Compose Service
 

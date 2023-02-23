@@ -1,5 +1,12 @@
 import os
 
+# ---------------------------------- GET DIR --------------------------------- #
+
+for root,dirs,files in os.walk("."):
+    if "pipeInstall.py" in files:
+        inst_dir = root.lstrip(".")
+os.chdir(os.getcwd()+inst_dir)
+
 # -------------------------------- PIP INSTALL ------------------------------- #
 
 piptk = os.system("sudo apt-get update && sudo apt-get install -y python3-pip")

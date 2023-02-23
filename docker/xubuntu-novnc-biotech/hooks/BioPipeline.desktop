@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=BioPipeline
+Comment=
+Exec=python3 /opt/bioprograms/pipeChooser.py
+Icon=applications-biology
+Path=
+Terminal=false
+StartupNotify=false

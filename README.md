@@ -212,6 +212,8 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [X] Resolve def readWorkdir()
 
+- [ ] Ciao
+
 - [ ] Remove console print from pipeChooser.py
 
 - [ ] pipePackage: move all desired pipe extensions inside /opt/pipeline/lib

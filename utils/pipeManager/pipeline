@@ -15,19 +15,29 @@ start() {
 stop() {
    # code to stop app comes here 
    # example: killproc program_name
-   kill -9 `cat /opt/pipeline/var/pipeline.pid`
-   if [ "$?" -ne "0" ]
+   if [ ! -f "/opt/pipeline/var/pipeline.pid" ]
    then
-      echo "Something went wrong while killing the service. If you are having some troubles, please check the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md"
-   else
-      echo "The service has been brutally stopped. Check the documentation, to report any strange or unexpected stop/crash: https://github.com/extreemedev/Biotech/blob/master/README.md"
+      echo "/opt/pipeline/var/pipeline.pid not found"
+      return
    fi
-
+   pid=$(cat /opt/pipeline/var/pipeline.pid)
+   if [ "$pid" == "None" ]
+   then
+      echo "The service is not running"
+   else
+      kill -9 `cat /opt/pipeline/var/pipeline.pid`
+      if [ "$?" -ne "0" ]
+      then
+         echo "Something went wrong while killing the service. If you are having some troubles, please check the documentation here: https://github.com/extreemedev/Biotech/blob/master/README.md"
+      else
+         echo "The service has been brutally stopped. Check the documentation to report any strange or unexpected stop/crash: https://github.com/extreemedev/Biotech/blob/master/README.md"
+      fi
+   fi
 }
 
 status() {
    # code to show app status comes here 
-   /usr/bin/python3 /opt/pipeline/lib/pipeStatus.py&
+   /usr/bin/python3 /opt/pipeline/lib/pipeStatus.py
 }
 
 case "$1" in 

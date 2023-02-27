@@ -45,9 +45,7 @@ RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.
     && unzip fastqc_v0.11.9.zip -d /opt/bioprograms/ \
     && rm -r fastqc_v0.11.9.zip \
     && chmod 755 /opt/bioprograms/FastQC/fastqc \
-    && sudo ln -s /opt/bioprograms/FastQC/fastqc /usr/local/bin/fastqc \
-    && sudo ln -s /home/headless/Desktop/fastqc.desktop /usr/share/applications/fastqc.desktop
-    #importante questo sopra, serve a collegare nella page delle applicazioni, ed ha anche il potere di lanciare
+    && sudo ln -s /opt/bioprograms/FastQC/fastqc /usr/local/bin/fastqc
 
 # ----------------------------------- CLEAN ---------------------------------- #
 

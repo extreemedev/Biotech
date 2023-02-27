@@ -6,6 +6,8 @@
 
 ***
 
+![image](https://drive.google.com/uc?export=view&id=1W2NNaJGyENDRP4pWzcajHI8hcVlkSam3)
+
 **Attention!** The repository [accetto/xubuntu-vnc-novnc][this-github-novnc] is **retired** and **archived**. It will not be developed any further and the related images on Docker Hub will not be rebuilt any more. They will phase out and they will be deleted after becoming too old.
 
 
@@ -35,6 +37,9 @@ This project's goal is to create a user friendly environment where anyone can ea
 ![image](https://drive.google.com/uc?export=view&id=1XoLgU-GS7JlHbnqV2O3f1va3YV1BvC5l)
 
 Our Dockerfile image `monitor` is based on [accetto/xubuntu-vnc-novnc][this-github-novnc] published image. This new custom image includes a bunch of jre and python installations and moreover some custom enviroment settings, which may let the user be easy using this noVNC system. It also includes a [FastQC][this-man-fastqc] interactive installation. Just for debug purpose, you can find these installations under the path: `/otp/bioprograms`, but it's highly recommended not to operate inside this directory.
+
+These base images already include commonly used utilities **ping**, **wget**, **zip**, **unzip**, **sudo**, [curl][curl], [git][git] and also the current version of [jq][jq] JSON processor.
+Additional components and applications can be easily added by the user because **sudo** is supported.
 
 ***
 
@@ -80,11 +85,9 @@ Here's a list of the container's names used in `docker-compose.yml`, associated 
 
 ***
 
-## Working Directory
+## Working directory
 
-These base images already include commonly used utilities **ping**, **wget**, **zip**, **unzip**, **sudo**, [curl][curl], [git][git] and also the current version of [jq][jq] JSON processor.
-Additional components and applications can be easily added by the user because **sudo** is supported.
-
+![image](https://drive.google.com/uc?export=view&id=1r-Bn89j_2JQVMtBCKX9eIejqKX-z3XLN)
 
 ***
 
@@ -120,7 +123,7 @@ Contains utilities that make building the images more convenient and helps out t
 
 **Attention!** To install this full pipeline service, you'll need to be **root** or a **sudoer user**.
 
-Now, in order to install the entire service, move inside `/utils/pipeManager/` and run the python installing script, with the following command:
+Now, in order to install the entire service, move inside `utils/pipeManager/` and run the python installing script, with the following command:
 ```
 python3 pipeInstall.py
 ```
@@ -176,9 +179,19 @@ docker compose down
 
 **Watch out!** Before running and using the service you'll need to perform the previous step.
 
-
-
+Systemd is composed of a set of daemons, libraries, and tools that allow the administration and configuration of the system and interact with the Gnu/Linux system kernel.
 Now, you are ready to run the service and suddenly execute the pipeline. Everytime you will need to execute the pipeline, open the terminal and please type the following command:
+
+- If your linux host-system supports `systemctl`:
+
+```
+sudo systemctl pipeline.service
+```
+
+
+
+- Otherwise if `systemctl` can't operate, you should use this:
+
 ```
 sudo service pipeline start
 ```
@@ -189,7 +202,7 @@ sudo service pipeline start
 
 **Attention!** To uninstall this full pipeline service, you'll need to be **root** or a **sudoer user**. Consider that, uninstalling this service, will also destroy your cloned repository.
 
-If you have the need to remove this service, or you are having trouble with filesystem conflicts or anything else, please use our one-step uninstall script. Please move inside `/utils/pipeManager/` and use the following command:
+If you have the need to remove this service, or you are having trouble with filesystem conflicts or anything else, please use our one-step uninstall script. Please move inside `utils/pipeManager/` and use the following command:
 ```
 python3 pipeUninstall.py
 ```
@@ -228,15 +241,13 @@ Credit goes to all the people, who contribute and provided this big cluster of d
 
 - [ ] Automated start and restart of Compose Service
 
-- [ ] Block git forks and master unhautorized update
+- [X] Block git forks and master unhautorized update
 
 - [ ] FetchCluster: move it inside Biopython (embedded)
 
-- [ ] Line 30 pipeFull.py
-
 - [ ] Optimize logger stout lines
 
-- [ ] Give back to user command prompt
+- [X] Give back to user command prompt
 
 - [ ] Pipeline loading script
 

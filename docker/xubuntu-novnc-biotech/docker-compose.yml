@@ -4,13 +4,11 @@ services:
 
   monitor:
     container_name: monitor
-    #image: accetto/xubuntu-vnc-novnc:latest
-    image: xubuntu-novnc-biotech:latest
+    image: mattallev/xubuntu-novnc-biotech:0.1
     user: root:root
     volumes:
       - type: bind
         source: ../../scripts
-        #source: /opt/pipeline/var/run
         target: /home/headless/Desktop/Biotech
     stdin_open: true
     tty: true   
@@ -27,6 +25,7 @@ services:
       - type: bind
         source: ../../scripts
         target: /data
+      - ../../utils/pipePackage/fetchClusterSeqs.py:/fetchClusterSeqs.py
     stdin_open: true
     tty: true
 

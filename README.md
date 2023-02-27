@@ -26,7 +26,7 @@
 
 ## Overview
 
-![image](https://drive.google.com/uc?export=view&id=1FbzpwJHxemwkqwWJSCFBQi9BnSDY1KgF)
+![image](https://drive.google.com/uc?export=view&id=1EvqBxD-jAfv9ytXgwp_MPJ4Zy6Yf4k2K)
 
 This project's goal is to create a user friendly environment where anyone can easily use the pipeline. It consists of a Docker Compose file which manages every softwares and microservices. Periodically (every 5 seconds) the host-system will check if the working directory contains the needed file to begin the pipeline, then will proceed automatically to start it, using a Python script. In the working directory then, the main program will add some specific folders named after the softwares, that will contain the output files generated.    
 
@@ -52,7 +52,7 @@ The resources for the individual images and their variations are stored in the s
 All images are part of a growing [image hierarchy][this-wiki-image-hierarchy].
 
 This `docker-compose.yml` file defines multiple services for different bioinformatics tools, each running on its own container. Some of these services have bind mounts, which allow them to access files and scripts on the host system. The containers are set to automatically restart and they are all part of the same network called bionet.
-Every single container is bound to the same working directory, generally on `/scripts`, in order to generate the expected outputs for each process.
+Every single container is bound to the same working directory, generally on `scripts/`, in order to generate the expected outputs for each process.
 The main container, `monitor` service, runs a desktop environment and exposes ports 25901 and 26901 for remote access. It runs the previous built Dockerfile image `xubuntu-novnc-biotech:latest`, and it has a Graphic User Interface where the user can easily work into. Inside this last one, the user has root privileges to enable file actions.
 
 ***
@@ -87,9 +87,9 @@ Here's a list of the container's names used in `docker-compose.yml`, associated 
 
 ## Working directory
 
-![image](https://drive.google.com/uc?export=view&id=1r-Bn89j_2JQVMtBCKX9eIejqKX-z3XLN)
+![image](https://drive.google.com/uc?export=view&id=1HASUiLPGZezlg5-B2-A4smz7p_ZlOI9g)
 
-The Working directory is a shared directory between the host system, on `/Biotech/scripts`, and the built-up containers, visible on monitor filesystem on `/home/headless/Desktop/Biotech` path. The user can copy any file wished to be processed into the host folder easily. In here, once the service is enabled, will be checked if there are the requested files. Hence, the pipeline will start.
+The Working directory is a shared directory between the host system, on `scripts/`, and the built-up containers, visible on monitor filesystem on `/home/headless/Desktop/Biotech` path. The user can copy any file wished to be processed into the host folder easily. In here, once the service is enabled, will be checked if there are the requested files. Hence, the pipeline will start.
 
 ***
 

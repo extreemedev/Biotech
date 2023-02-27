@@ -212,52 +212,18 @@ The service will be removed from `/etc/init.d`, all files will be deleted and th
 
 ## Credits
 
-Credit goes to all the people, who contribute and provided this big cluster of docker image and resources:
+Credit goes to all the people, who contributed and provided this big cluster of docker images and resources, and particularly to:
 
+- Professor Tiziana Castrignanò
+- Professor Pietro Libro
+- [Adam Taranto][github-adamtaranto]
 ***
 
-## To-Do-List
-
-- [X] Administrate Monitor/FastQC
-
-- [X] Create logger/log files
-
-- [X] Check the service status (def .py) within n-start of pipeline.service
-
-- [X] Resolve def readWorkdir()
-
-- [X] Remove console print from pipeChooser.py
-
-- [X] pipePackage: move all desired pipe extensions inside /opt/pipeline/lib
-
-- [X] Dockerfile: move pipeScript in scripts into monitor /opt/
-
-- [X] Line 11 in pipeline.sh
-
-- [X] Installation directory Dockerfile programs and sources
-
-- [X] Dockerfile: mettere gli eseguibili sul desktop di novnc. Basta caricare in hooks, i file .desktop, copiarli nel dockerfile e dare i permessi di esecuzione
-
-- [ ] Dockerfile: ultimare e pushare su DockerHub
-
-- [ ] Automated start and restart of Compose Service
-
-- [X] Block git forks and master unhautorized update
-
-- [ ] FetchCluster: move it inside Biopython (embedded)
+## Optimization ideas
 
 - [ ] Optimize logger stout lines
 
-- [X] Give back to user command prompt
-
 - [ ] Pipeline loading script
-
-- [ ] Echo in pipeline.sh ("\n")
-
-- [ ] Resolve Busco problem
-
-- [ ] Check pull & installation (before the exam)
-
 
 
 [this-docker]: https://hub.docker.com/u/mattallev

@@ -90,6 +90,7 @@ Here's a list of the container's names used in `docker-compose.yml`, associated 
 ![image](https://drive.google.com/uc?export=view&id=1r-Bn89j_2JQVMtBCKX9eIejqKX-z3XLN)
 
 The Working directory is a shared directory between the host system, on `/Biotech/scripts`, and the built-up containers, visible on monitor filesystem on `/home/headless/Desktop/Biotech` path. The user can copy any file wished to be processed into the host folder easily. In here, once the service is enabled, will be checked if there are the requested files. Hence, the pipeline will start.
+
 ***
 
 ## Python Package Utils
@@ -208,6 +209,7 @@ If you have the need to remove this service, or you are having trouble with file
 python3 pipeUninstall.py
 ```
 The service will be removed from `/etc/init.d`, all files will be deleted and the tree directory structure will be purged. If you would like to reinstall it, you'll have to clone this repository again and repeat the process of installation.
+
 ***
 
 ## Credits
@@ -215,8 +217,9 @@ The service will be removed from `/etc/init.d`, all files will be deleted and th
 Credit goes to all the people, who contributed and provided this big cluster of docker images and resources, and particularly to:
 
 - Professor Tiziana Castrignanò
-- Professor Pietro Libro
+- PhD Bachelor Doctor Pietro Libro
 - [Adam Taranto][github-adamtaranto]
+
 ***
 
 ## Optimization ideas
@@ -224,6 +227,8 @@ Credit goes to all the people, who contributed and provided this big cluster of 
 - [ ] Optimize logger stout lines
 
 - [ ] Pipeline loading script
+
+- [ ] Resolve compose down uninstall issue
 
 
 [this-docker]: https://hub.docker.com/u/mattallev

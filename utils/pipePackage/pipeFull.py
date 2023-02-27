@@ -27,7 +27,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
               "#                                Pipeline Started                              #\n"+ \
               "# ---------------------------------------------------------------------------- #\n")
 
-    dir_scripts = readWorkdir()+"scripts/"      # CAMBIARE IN FAVORE DI OPT PIPELINE
+    dir_scripts = readWorkdir()+"scripts/"
     dir_pipe = pipename+"/"
     dir_fastqc = "FastQC"
     dir_trimmomatic = "Trimmomatic"
@@ -198,7 +198,7 @@ def Pipeline(pipename,file1,file2,threads=str(multiprocessing.cpu_count())):
 
         print("Fetch Cluster")
         biopython = client.containers.get("biopython")
-        biopython_msg = biopython.exec_run("python3 /data/fetchClusterSeqs.py -i /data/"+dir_pipe+dir_cdhit+"/cd-hit-transcripts.fasta -t /data/"+dir_pipe+dir_corset+"/counts.txt -o "+pipename+".fasta -c /data/"+dir_pipe+dir_corset+"/clusters.txt" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/"+dir_pipe, demux=False)
+        biopython_msg = biopython.exec_run("python3 /fetchClusterSeqs.py -i /data/"+dir_pipe+dir_cdhit+"/cd-hit-transcripts.fasta -t /data/"+dir_pipe+dir_corset+"/counts.txt -o "+pipename+".fasta -c /data/"+dir_pipe+dir_corset+"/clusters.txt" , stdout=True, stderr=True, stdin=False, tty=False, privileged=False, user='', detach=False, stream=False, socket=False, environment=None, workdir="/data/"+dir_pipe, demux=False)
         if int(biopython_msg.exit_code) == 0:
             print("Fetch Cluster: done")
             logger.info("Fetch Cluster: done")
@@ -240,13 +240,13 @@ filepid = "/opt/pipeline/var/pipeline.pid"
 f = open(filepid,"w+")
 f.write(str(pid))
 f.close()
-os.chdir(str(readWorkdir())+"scripts/")
+os.chdir(readWorkdir()+"scripts/")
 
 # ------------------------------- SERVICE LOOP ------------------------------- #
 
 while True:  
-    if os.path.exists(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt"):
-        input = readFile(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
-        os.remove(".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
+    if os.path.exists(readWorkdir()+"scripts/"+".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt"):
+        input = readFile(readWorkdir()+"scripts/"+".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
+        os.remove(readWorkdir()+"scripts/"+".assembly#pipe#checkcomm38457*63923!0859#200847572^8*7*8572901@**3928*39$439*945805.txt")
         Pipeline(input[0], input[1], input[2])
     time.sleep(5)

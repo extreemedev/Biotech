@@ -17,7 +17,6 @@ def drawStatus():
         pid = pid[:-1]
     pid += " #"
     status_list = [line, title, line, empty, status, empty, pid, empty, line]
-    print("\n")
     [print(elem_list) for elem_list in status_list]
     return(checkStatus())
 

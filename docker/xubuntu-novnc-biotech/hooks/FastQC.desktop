@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=FastQC
+Comment=
+Exec=/opt/bioprograms/FastQC/fastqc
+Icon=/opt/bioprograms/FastQC/fastqc_icon.ico
+Path=
+Terminal=false
+StartupNotify=false

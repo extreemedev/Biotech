@@ -35,5 +35,5 @@ if os.path.exists("/etc/systemd/system/pipeline.service"):
 # ---------------------------------- IMAGES ---------------------------------- #
 
 # AGGIUNGERE IN PRIMA POSIZIONE NOVNC
-for image in ["biocontainers/biopython:v1.73dfsg-1-deb-py3_cv1","ezlabgva/busco:v5.4.3_cv1 ","chrishah/cdhit:v4.8.1", "mdiblbiocore/corset:1.0.9", "staphb/fastqc:latest", "nanozoo/hisat2:latest", "staphb/spades:latest", "biocrusoe/transdecoder", "staphb/trimmomatic:latest"]:
+for image in ["mattallev/xubuntu-novnc-biotech:1.0","biocontainers/biopython:v1.73dfsg-1-deb-py3_cv1","ezlabgva/busco:v5.4.3_cv1 ","chrishah/cdhit:v4.8.1", "mdiblbiocore/corset:1.0.9", "staphb/fastqc:latest", "nanozoo/hisat2:latest", "staphb/spades:latest", "biocrusoe/transdecoder", "staphb/trimmomatic:latest"]:
     os.system("sudo docker rmi -f "+image)

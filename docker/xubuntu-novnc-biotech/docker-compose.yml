@@ -4,7 +4,7 @@ services:
 
   monitor:
     container_name: monitor
-    image: mattallev/xubuntu-novnc-biotech:0.1
+    image: mattallev/xubuntu-novnc-biotech:1.0
     user: root:root
     volumes:
       - type: bind

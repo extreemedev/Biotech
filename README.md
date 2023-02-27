@@ -89,6 +89,7 @@ Here's a list of the container's names used in `docker-compose.yml`, associated 
 
 ![image](https://drive.google.com/uc?export=view&id=1r-Bn89j_2JQVMtBCKX9eIejqKX-z3XLN)
 
+The Working directory is a shared directory between the host system, on `/Biotech/scripts`, and the built-up containers, visible on monitor filesystem on `/home/headless/Desktop/Biotech` path. The user can copy any file wished to be processed into the host folder easily. In here, once the service is enabled, will be checked if there are the requested files. Hence, the pipeline will start.
 ***
 
 ## Python Package Utils
